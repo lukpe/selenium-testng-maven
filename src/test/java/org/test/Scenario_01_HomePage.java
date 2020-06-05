@@ -1,6 +1,6 @@
 package org.test;
 
-import objects.page.HomePage;
+import pages.HomePage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -27,22 +27,22 @@ public class Scenario_01_HomePage extends Base {
 
     @Test
     public void validateLogo() {
-        assertTrue(hp.getLogo().isDisplayed());
+        assertTrue(hp.checkLogo());
     }
 
     @Test
     public void validateSearchBar() {
-        assertTrue(hp.getSearchBar().isDisplayed());
+        assertTrue(hp.checkSearchBar());
     }
 
     @Test
     public void validateShoppingCart() {
-        assertTrue(hp.getShoppingCart().isDisplayed());
+        assertTrue(hp.checkShoppingCart());
     }
 
     @Test
     public void validateSignInLink(){
-        assertTrue(hp.getSignInLink().isDisplayed());
+        assertTrue(hp.checkSignIn());
     }
 
     @AfterClass
