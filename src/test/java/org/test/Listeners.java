@@ -14,21 +14,21 @@ import java.io.IOException;
 
 public class Listeners implements ITestListener {
 
-    private static final Logger logger = LogManager.getLogger(Scenario_01_HomePage.class);
+    private static final Logger logger = LogManager.getLogger(ITestListener.class);
 
     @Override
     public void onTestStart(ITestResult result) {
-        logger.trace(result.getName() + " - START");
+        logger.trace("[" + result.getTestClass().getName() + "] " + result.getName() + " - START");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        logger.trace(result.getName() + " - SUCCESS");
+        logger.trace("[" + result.getTestClass().getName() + "] " + result.getName() + " - SUCCESS");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        logger.error(result.getName() + " - FAIL");
+        logger.error("[" + result.getTestClass().getName() + "] " + result.getName() + " - FAIL");
         logger.error(result.getThrowable());
 
         try {
@@ -36,7 +36,8 @@ public class Listeners implements ITestListener {
             WebDriver driver = ((Base) currentClass).getDriver();
 
             File scrShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(scrShot, new File(System.getProperty("user.dir") + "\\screenshots\\scrShot_" + result.getName() + "_" + System.currentTimeMillis() + ".png"));
+            String fileName = "scrShot_" + result.getTestClass().getName() + "_" + result.getName() + "_" + System.currentTimeMillis() + ".png";
+            FileUtils.copyFile(scrShot, new File(System.getProperty("user.dir") + "\\screenshots\\" + fileName));
         } catch (IOException i) {
             i.printStackTrace();
         }

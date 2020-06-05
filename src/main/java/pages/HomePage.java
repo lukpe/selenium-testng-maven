@@ -40,4 +40,8 @@ public class HomePage {
     public Boolean checkSignIn(){
         return signIn.isDisplayed();
     }
+
+    public void goSignIn(){
+        signIn.click();
+    }
 }
