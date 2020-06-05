@@ -14,6 +14,7 @@ public class HomePage {
     private final By logo = By.xpath("//img[@class='logo img-responsive']");
     private final By searchBar = By.xpath("//input[@id='search_query_top']");
     private final By shoppingCart = By.xpath("//div[@class='shopping_cart']");
+    private final By singInLink = By.xpath("//a[@class='login']");
 
     public WebElement getLogo() {
         return driver.findElement(logo);
@@ -25,6 +26,10 @@ public class HomePage {
 
     public WebElement getShoppingCart() {
         return driver.findElement(shoppingCart);
+    }
+
+    public WebElement getSignInLink() {
+        return driver.findElement(singInLink);
     }
 
 }

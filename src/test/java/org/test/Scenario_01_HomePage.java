@@ -1,15 +1,13 @@
 package org.test;
 
 import objects.page.HomePage;
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class Scenario_01_HomePage extends Base {
@@ -20,6 +18,11 @@ public class Scenario_01_HomePage extends Base {
         driver = initializeDriver();
         driver.get(properties.getProperty("homePageURL"));
         hp = new HomePage(driver);
+    }
+
+    @Test
+    public void validateTitle() {
+        assertEquals(driver.getTitle(), "My Store");
     }
 
     @Test
@@ -35,6 +38,11 @@ public class Scenario_01_HomePage extends Base {
     @Test
     public void validateShoppingCart() {
         assertTrue(hp.getShoppingCart().isDisplayed());
+    }
+
+    @Test
+    public void validateSignInLink(){
+        assertTrue(hp.getSignInLink().isDisplayed());
     }
 
     @AfterClass
