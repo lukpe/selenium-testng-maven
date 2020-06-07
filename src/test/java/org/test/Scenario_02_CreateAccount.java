@@ -35,41 +35,41 @@ public class Scenario_02_CreateAccount extends Base {
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver, wait);
+        generateLoginData();
     }
 
     @Test(priority = 1)
     public void createAccount() {
-        //Generate Login data
-        int rndNum = randomNumber();
-        randomEmail = "test" + rndNum + "@test.test";
-        randomPassword = "Test" + rndNum + "!";
-        //Write login data to excel sheet
-        ExcelDriver excel = new ExcelDriver();
-        excel.writeLogin(randomEmail, randomPassword);
         //Create an account
         hp.signIn();
         lp.createAccount(firstName, lastName, randomEmail, randomPassword);
+        assertTrue(map.verifyPageHeader());
     }
 
     @Test(priority = 2)
     public void verifyAccount() {
-        //Verify created account
-        assertTrue(map.verifyPageHeader());
+        //Verify personal information
         hp.signOut();
         lp.signIn(randomEmail, randomPassword);
         assertTrue(map.verifyPageHeader());
         assertTrue(map.verifyPersonalInformation(firstName, lastName, randomEmail));
     }
 
-    private int randomNumber() {
+    private void generateLoginData(){
+        //Generate email and password
         Random rnd = new Random();
         int upperBound = 10000;
-        return rnd.nextInt(upperBound);
+        int rndNum = rnd.nextInt(upperBound);
+        randomEmail = firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test";
+        randomPassword = "Test" + rndNum + "!";
+        //Write login data to excel sheet
+        ExcelDriver excel = new ExcelDriver();
+        excel.writeLogin(randomEmail, randomPassword);
     }
 
     @AfterClass
     public void tearDown() {
-        driver.quit();
+        //driver.quit();
     }
 
 }

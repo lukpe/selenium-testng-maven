@@ -126,8 +126,8 @@ public class LoginPage {
         //Special offers
         specialOffers.click();
         //Your Address
-        addressFirstName.sendKeys(firstName);
-        addressLastName.sendKeys(lastName);
+        wait.until(ExpectedConditions.attributeToBe(addressFirstName,"value",firstName));
+        wait.until(ExpectedConditions.attributeToBe(addressLastName,"value",lastName));
         addressCompany.sendKeys("Test Co.");
         addressLine1.sendKeys("Selenium St. 123");
         addressLine2.sendKeys("Building C Penthouse");
