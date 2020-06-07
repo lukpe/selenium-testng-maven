@@ -23,25 +23,33 @@ public class HomePage {
     WebElement shoppingCart;
 
     @FindBy(xpath = "//a[@class='login']")
-    WebElement signIn;
+    WebElement login;
 
-    public Boolean checkLogo() {
+    @FindBy(xpath = "//a[@class='logout']")
+    WebElement logout;
+
+    public boolean checkLogo() {
         return logo.isDisplayed();
     }
 
-    public Boolean checkSearchBar() {
+    public boolean checkSearchBar() {
         return searchBar.isDisplayed();
     }
 
-    public Boolean checkShoppingCart() {
+    public boolean checkShoppingCart() {
         return shoppingCart.isDisplayed();
     }
 
-    public Boolean checkSignIn(){
-        return signIn.isDisplayed();
+    public boolean checkSignIn() {
+        return login.isDisplayed();
     }
 
-    public void goSignIn(){
-        signIn.click();
+    public void signIn() {
+        login.click();
     }
+
+    public void signOut() {
+        logout.click();
+    }
+
 }

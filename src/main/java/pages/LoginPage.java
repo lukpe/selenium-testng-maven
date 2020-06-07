@@ -4,17 +4,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.test.Base;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LoginPage {
     public WebDriver driver;
+    WebDriverWait wait;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
@@ -28,10 +35,10 @@ public class LoginPage {
     WebElement gender;
 
     @FindBy(id = "customer_firstname")
-    WebElement firstName;
+    WebElement customerFirstName;
 
     @FindBy(id = "customer_lastname")
-    WebElement lastName;
+    WebElement customerLastName;
 
     @FindBy(id = "email")
     WebElement emailField;
@@ -39,33 +46,114 @@ public class LoginPage {
     @FindBy(id = "passwd")
     WebElement passwordField;
 
-    @FindBy(xpath = "//select[@id='years']")
-    Select years;
+    @FindBy(id = "years")
+    WebElement years;
 
-    public void typeEmail(String email) {
+    @FindBy(id = "months")
+    WebElement months;
+
+    @FindBy(id = "days")
+    WebElement days;
+
+    @FindBy(id = "newsletter")
+    WebElement newsletter;
+
+    @FindBy(id = "optin")
+    WebElement specialOffers;
+
+    @FindBy(id = "firstname")
+    WebElement addressFirstName;
+
+    @FindBy(id = "lastname")
+    WebElement addressLastName;
+
+    @FindBy(id = "company")
+    WebElement addressCompany;
+
+    @FindBy(id = "address1")
+    WebElement addressLine1;
+
+    @FindBy(id = "address2")
+    WebElement addressLine2;
+
+    @FindBy(id = "city")
+    WebElement addressCity;
+
+    @FindBy(id = "id_state")
+    WebElement addressState;
+
+    @FindBy(id = "postcode")
+    WebElement addressPostcode;
+
+    @FindBy(id = "other")
+    WebElement addressOther;
+
+    @FindBy(id = "phone")
+    WebElement addressPhone;
+
+    @FindBy(id = "phone_mobile")
+    WebElement addressMobile;
+
+    @FindBy(id = "alias")
+    WebElement addressAlias;
+
+    @FindBy(id = "submitAccount")
+    WebElement submitAccount;
+
+    @FindBy(id = "SubmitLogin")
+    WebElement submitLogin;
+
+    public void createAccount(String firstName, String lastName, String email, String password) {
+        //Create an account
         emailCreate.sendKeys(email);
-    }
-
-    public void submitEmail() {
         submitCreate.click();
-    }
-
-    public Boolean checkEmail(String email){
-        String fieldValue =  emailField.getAttribute("value");
-        return fieldValue.equalsIgnoreCase(email);
-    }
-
-    public void fillPersonalInformation(String password) {
+        //Title
         gender.click();
-        firstName.sendKeys("Tester");
-        lastName.sendKeys("Testinson");
+        //First name
+        customerFirstName.sendKeys(firstName);
+        //Last name
+        customerLastName.sendKeys(lastName);
+        //Email
+        wait.until(ExpectedConditions.attributeToBe(emailField, "value", email));
+        //Password
         passwordField.sendKeys(password);
-        List<WebElement> yearList = years.getOptions();
-        int yearsSize = yearList.size();
-        int randomYear = ThreadLocalRandom.current().nextInt(2,yearsSize);
-        years.selectByIndex(randomYear);
-
+        //Date of Birth
+        selectValue(years, 2);
+        selectValue(months, 1);
+        selectValue(days, 1);
+        //Newsletter
+        newsletter.click();
+        //Special offers
+        specialOffers.click();
+        //Your Address
+        addressFirstName.sendKeys(firstName);
+        addressLastName.sendKeys(lastName);
+        addressCompany.sendKeys("Test Co.");
+        addressLine1.sendKeys("Selenium St. 123");
+        addressLine2.sendKeys("Building C Penthouse");
+        addressCity.sendKeys("Kosciuszko");
+        selectValue(addressState, 1);
+        addressPostcode.sendKeys("12345");
+        addressOther.sendKeys("Selenium test client");
+        addressPhone.sendKeys("(123) 456-7890");
+        addressMobile.sendKeys("123-456-7890");
+        addressAlias.clear();
+        addressAlias.sendKeys("Test Address");
+        //Register
+        submitAccount.click();
     }
 
+    public void signIn(String email, String password) {
+        emailField.sendKeys(email);
+        passwordField.sendKeys(password);
+        submitLogin.click();
+    }
 
+    private void selectValue(WebElement webElement, int startFrom) {
+        Select select = new Select(webElement);
+        List<WebElement> selectList = select.getOptions();
+        int selectSize = selectList.size();
+        int randomIndex = ThreadLocalRandom.current().nextInt(startFrom, selectSize);
+        select.selectByIndex(randomIndex);
+    }
 }

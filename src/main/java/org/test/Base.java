@@ -24,6 +24,7 @@ public class Base {
 
     public WebDriver driver;
     public Properties properties;
+    public int timeOut;
 
     public WebDriver initializeDriver() throws IOException {
         properties = new Properties();
@@ -66,7 +67,8 @@ public class Base {
         }
 
         //Default timeout
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        timeOut = Integer.parseInt(properties.getProperty("timeOut"));
+        driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
 
         return driver;
     }
