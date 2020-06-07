@@ -69,7 +69,7 @@ public class Scenario_02_CreateAccount extends Base {
 
     @AfterClass
     public void tearDown() {
-        //driver.quit();
+        driver.quit();
     }
 
 }
