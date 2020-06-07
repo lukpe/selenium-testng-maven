@@ -22,6 +22,10 @@ public class Scenario_02_CreateAccount extends Base {
     HomePage hp;
     LoginPage lp;
     MyAccountPage map;
+    private final String firstName = "John";
+    private final String lastName = "Kowalski";
+    private String randomEmail;
+    private String randomPassword;
 
     @BeforeClass
     public void setUp() throws IOException {
@@ -33,20 +37,22 @@ public class Scenario_02_CreateAccount extends Base {
         map = new MyAccountPage(driver, wait);
     }
 
-    @Test
+    @Test(priority = 1)
     public void createAccount() {
         //Generate Login data
-        String firstName = "John";
-        String lastName = "Kowalski";
         int rndNum = randomNumber();
-        String randomEmail = "test" + rndNum + "@test.test";
-        String randomPassword = "Test" + rndNum + "!";
+        randomEmail = "test" + rndNum + "@test.test";
+        randomPassword = "Test" + rndNum + "!";
         //Write login data to excel sheet
         ExcelDriver excel = new ExcelDriver();
         excel.writeLogin(randomEmail, randomPassword);
         //Create an account
         hp.signIn();
         lp.createAccount(firstName, lastName, randomEmail, randomPassword);
+    }
+
+    @Test(priority = 2)
+    public void verifyAccount() {
         //Verify created account
         assertTrue(map.verifyPageHeader());
         hp.signOut();
