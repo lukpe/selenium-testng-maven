@@ -19,7 +19,7 @@ public class Listeners implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        logger.trace("[" + result.getTestClass().getName() + "] " + result.getName() + " - START");
+        //logger.trace("[" + result.getTestClass().getName() + "] " + result.getName() + " - START");
     }
 
     @Override
