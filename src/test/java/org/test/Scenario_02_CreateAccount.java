@@ -64,7 +64,7 @@ public class Scenario_02_CreateAccount extends Base {
         randomPassword = "Test" + rndNum + "!";
         //Write login data to excel sheet
         ExcelDriver excel = new ExcelDriver();
-        excel.writeLogin(randomEmail, randomPassword);
+        excel.writeLoginData(randomEmail, randomPassword);
     }
 
     @AfterClass

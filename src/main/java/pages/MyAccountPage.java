@@ -32,6 +32,9 @@ public class MyAccountPage {
     @FindBy(id = "email")
     WebElement accountEmail;
 
+    @FindBy(xpath = "//a[@title='Home']")
+    WebElement home;
+
 
     public boolean verifyPageHeader() {
         wait.until(ExpectedConditions.visibilityOf(pageHeader));
@@ -44,6 +47,10 @@ public class MyAccountPage {
         boolean lNameCorrect = accountLastName.getAttribute("value").equalsIgnoreCase(lastName);
         boolean emailCorrect = accountEmail.getAttribute("value").equalsIgnoreCase(email);
         return fNameCorrect && lNameCorrect && emailCorrect;
+    }
+
+    public void goHome(){
+        home.click();
     }
 
 }

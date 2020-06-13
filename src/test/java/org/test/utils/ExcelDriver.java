@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.openqa.selenium.support.PageFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,13 +13,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ExcelDriver {
-    public void writeLogin(String login, String password) {
-        File file = new File(System.getProperty("user.dir") + "\\resources\\LoginData.xls");
+    File file;
+    FileInputStream fis;
+    Workbook loginData;
+    Sheet sheet;
+    int rowCount;
+
+    public void writeLoginData(String login, String password) {
+        setUp();
         try {
-            FileInputStream fis = new FileInputStream(file);
-            Workbook loginData = new HSSFWorkbook(fis);
-            Sheet sheet = loginData.getSheet("Login");
-            int rowCount = sheet.getLastRowNum();
             Row row = sheet.createRow(rowCount + 1);
             Cell loginCell = row.createCell(0);
             loginCell.setCellValue(login);
@@ -28,6 +31,35 @@ public class ExcelDriver {
             FileOutputStream fos = new FileOutputStream(file);
             loginData.write(fos);
             fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String[] getLoginData(){
+        String[] loginData = new String[2];
+        try {
+            setUp();
+            Row row = sheet.getRow(rowCount);
+            Cell loginCell = row.getCell(0);
+            loginData[0] = loginCell.getStringCellValue();
+            Cell passwordCell = row.getCell(1);
+            loginData[1] = passwordCell.getStringCellValue();
+            fis.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return loginData;
+    }
+
+    private void setUp(){
+        try {
+            file = new File(System.getProperty("user.dir") + "\\resources\\LoginData.xls");
+            fis = new FileInputStream(file);
+            loginData = new HSSFWorkbook(fis);
+            sheet = loginData.getSheet("Login");
+            rowCount = sheet.getLastRowNum();
         } catch (IOException e) {
             e.printStackTrace();
         }

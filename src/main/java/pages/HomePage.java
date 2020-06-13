@@ -2,14 +2,20 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
     public WebDriver driver;
+    Actions actions;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -19,8 +25,11 @@ public class HomePage {
     @FindBy(xpath = "//input[@id='search_query_top']")
     WebElement searchBar;
 
-    @FindBy(xpath = "//div[@class='shopping_cart']")
+    @FindBy(xpath = "//div[@class='shopping_cart']/a")
     WebElement shoppingCart;
+
+    @FindBy(xpath = "//a[@title='Check out']")
+    WebElement checkOut;
 
     @FindBy(xpath = "//a[@class='login']")
     WebElement login;
@@ -52,4 +61,17 @@ public class HomePage {
         logout.click();
     }
 
+    public void searchProduct(String input) {
+        searchBar.sendKeys(input);
+        searchBar.submit();
+    }
+
+    public boolean checkCartQuantity(String quantity) {
+        return shoppingCart.getText().matches("^Cart " + quantity + " Products?$");
+    }
+
+    public void proceedCheckOut(){
+        Action builder = actions.moveToElement(shoppingCart).pause(1000).moveToElement(checkOut).click().build();
+        builder.perform();
+    }
 }
