@@ -28,11 +28,10 @@ public class Scenario_03_OrderProduct extends Base {
     MyAccountPage map;
     SearchPage sp;
 
-    private String[] loginData;
-
     @BeforeClass
     public void setUp() throws IOException {
         driver = initializeDriver();
+        wait = new WebDriverWait(driver, timeOut);
         driver.get(properties.getProperty("homePageURL"));
         driver.manage().window().maximize();
         hp = new HomePage(driver);
@@ -45,7 +44,7 @@ public class Scenario_03_OrderProduct extends Base {
 
     @Test(priority = 1)
     public void logIn() {
-        loginData = excel.getLoginData();
+        String[] loginData = excel.getLoginData();
         hp.signIn();
         lp.signIn(loginData[0], loginData[1]);
         map.goHome();

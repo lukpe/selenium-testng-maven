@@ -21,7 +21,7 @@ public class SearchPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//div[@class='product-container'][1]//a[@class='product-name']")
+    @FindBy(xpath = "//ul[@class='product_list grid row']//a[@class='product-name']")
     WebElement searchResult;
 
     @FindBy(xpath = "//span[contains(text(),'Add to cart')]")
@@ -34,10 +34,12 @@ public class SearchPage {
     WebElement continueShopping;
 
     public boolean checkSearchResult(String name) {
-        return searchResult.getText().toLowerCase().contains(name);
+        wait.until(ExpectedConditions.visibilityOf(searchResult));
+        return searchResult.getAttribute("title").toLowerCase().contains(name);
     }
 
     public boolean verifyMessageHeader(String message) {
+        wait.until(ExpectedConditions.visibilityOf(header));
         return header.getAttribute("innerText").trim().equalsIgnoreCase(message);
     }
 
