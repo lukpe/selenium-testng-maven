@@ -44,7 +44,7 @@ public class SearchPage {
     }
 
     public void addProductToCart() {
-        Action builder = actions.moveToElement(searchResult).moveToElement(addToCart).click().build();
+        Action builder = actions.pause(500).moveToElement(searchResult).pause(500).moveToElement(addToCart).click().build();
         builder.perform();
     }
 
