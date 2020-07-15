@@ -44,8 +44,7 @@ public class SearchPage {
     }
 
     public void addProductToCart() {
-        Action builder = actions.pause(500).moveToElement(searchResult).pause(500).moveToElement(addToCart).click().build();
-        builder.perform();
+        new Actions(driver).pause(500).moveToElement(searchResult).pause(500).moveToElement(addToCart).click().perform();
     }
 
     public WebElement getContinueShopping() {

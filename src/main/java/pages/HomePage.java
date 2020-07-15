@@ -28,7 +28,7 @@ public class HomePage {
     @FindBy(xpath = "//div[@class='shopping_cart']/a")
     WebElement shoppingCart;
 
-    @FindBy(xpath = "//a[@title='Check out']")
+    @FindBy(xpath = "//p[@class='cart-buttons']//a[@id='button_order_cart']")
     WebElement checkOut;
 
     @FindBy(xpath = "//a[@class='login']")
@@ -71,7 +71,6 @@ public class HomePage {
     }
 
     public void proceedCheckOut(){
-        Action builder = actions.moveToElement(shoppingCart).pause(1000).moveToElement(checkOut).click().build();
-        builder.perform();
+        new Actions(driver).pause(500).moveToElement(shoppingCart).pause(500).moveToElement(checkOut).click().perform();
     }
 }
