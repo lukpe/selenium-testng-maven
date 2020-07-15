@@ -15,7 +15,6 @@ import pages.SearchPage;
 
 import java.io.IOException;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class Scenario_03_OrderProduct extends Base {
