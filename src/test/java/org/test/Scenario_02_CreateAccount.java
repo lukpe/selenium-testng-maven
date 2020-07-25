@@ -30,7 +30,6 @@ public class Scenario_02_CreateAccount extends Base {
     public void setUp() throws IOException {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
-        driver.get(properties.getProperty("homePageURL"));
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver, wait);

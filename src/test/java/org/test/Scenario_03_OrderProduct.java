@@ -31,8 +31,6 @@ public class Scenario_03_OrderProduct extends Base {
     public void setUp() throws IOException {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
-        driver.get(properties.getProperty("homePageURL"));
-        driver.manage().window().maximize();
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver, wait);

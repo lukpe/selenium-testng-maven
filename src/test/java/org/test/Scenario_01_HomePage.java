@@ -16,7 +16,6 @@ public class Scenario_01_HomePage extends Base {
     @BeforeClass
     public void setUp() throws IOException {
         driver = initializeDriver();
-        driver.get(properties.getProperty("homePageURL"));
         hp = new HomePage(driver);
     }
 

@@ -66,6 +66,9 @@ public class Base {
         timeOut = Integer.parseInt(properties.getProperty("timeOut"));
         driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
 
+        driver.get(properties.getProperty("homePageURL"));
+        driver.manage().window().maximize();
+
         return driver;
     }
 
