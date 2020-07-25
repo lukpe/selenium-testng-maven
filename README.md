@@ -41,3 +41,5 @@ Selenium framework for testing sample e-commerce page ([automationpractice.com](
 1. Log in (take latest credentials from LoginData.xls).
 2. Add a product to cart (product name parametrized in [testng.xml]).
 3. Proceed to checkout.
+4. Verify cart page.
+5. Test adding/removing product quantity.
