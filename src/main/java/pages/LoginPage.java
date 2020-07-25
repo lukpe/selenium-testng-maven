@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class LoginPage {
     public WebDriver driver;
-    WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;

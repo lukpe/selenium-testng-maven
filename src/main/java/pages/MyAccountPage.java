@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MyAccountPage {
     public WebDriver driver;
-    WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public MyAccountPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;

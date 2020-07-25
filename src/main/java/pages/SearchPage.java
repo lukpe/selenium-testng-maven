@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchPage {
-    WebDriver driver;
-    WebDriverWait wait;
+    public WebDriver driver;
+    private final WebDriverWait wait;
     Actions actions;
 
     public SearchPage(WebDriver driver, WebDriverWait wait) {

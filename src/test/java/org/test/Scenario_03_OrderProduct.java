@@ -8,10 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.MyAccountPage;
-import pages.SearchPage;
+import pages.*;
 
 import java.io.IOException;
 
@@ -26,6 +23,7 @@ public class Scenario_03_OrderProduct extends Base {
     LoginPage lp;
     MyAccountPage map;
     SearchPage sp;
+    OrderPage op;
 
     @BeforeClass
     public void setUp() throws IOException {
@@ -35,6 +33,7 @@ public class Scenario_03_OrderProduct extends Base {
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver, wait);
         sp = new SearchPage(driver, wait);
+        op = new OrderPage(driver, wait);
         excel = new ExcelDriver();
         actions = new Actions(driver);
     }
@@ -60,9 +59,22 @@ public class Scenario_03_OrderProduct extends Base {
         assertTrue(hp.checkCartQuantity("1"));
     }
 
+    @Parameters({"product"})
     @Test(priority = 3)
-    public void checkOut() {
+    public void checkOut(String product) {
+        product = product.toLowerCase();
         hp.proceedCheckOut();
+        assertTrue(op.checkCartTitle("1 Product"));
+        assertTrue(op.verifyProductName(product));
+        assertTrue(op.verifyProductQty(1));
+        op.addProduct();
+        assertTrue(op.verifyProductQty(2));
+        assertTrue(op.checkCartTitle("2 Products"));
+        op.removeProduct();
+        assertTrue(op.verifyProductQty(1));
+        assertTrue(op.checkCartTitle("1 Product"));
+        op.proceedCheckOut();
+        //TODO Address verification
     }
 
     @AfterClass
