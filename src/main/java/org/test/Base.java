@@ -48,16 +48,10 @@ public class Base {
             if (browserName.contains("chrome")) {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions options = new ChromeOptions();
-                if (browserName.contains("headless")) {
-                    options.setHeadless(true);
-                }
                 driver = new ChromeDriver(options);
             } else if (browserName.contains("firefox")) {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions options = new FirefoxOptions();
-                if (browserName.contains("headless")) {
-                    options.setHeadless(true);
-                }
                 driver = new FirefoxDriver(options);
             }
         }
