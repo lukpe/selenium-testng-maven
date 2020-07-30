@@ -1,8 +1,10 @@
 package org.test;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.Column;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,45 +16,18 @@ public class ExcelDriver {
     FileInputStream fis;
     Workbook loginData;
     Sheet sheet;
-    int rowCount;
-
-    public void writeLoginData(String login, String password) {
-        setUp();
-        try {
-            Row row = sheet.createRow(rowCount + 1);
-            Cell loginCell = row.createCell(0);
-            loginCell.setCellValue(login);
-            Cell passwordCell = row.createCell(1);
-            passwordCell.setCellValue(password);
-            fis.close();
-            FileOutputStream fos = new FileOutputStream(file);
-            loginData.write(fos);
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String[] getLoginData(){
-        String[] loginData = new String[2];
-        try {
-            setUp();
-            Row row = sheet.getRow(rowCount);
-            Cell loginCell = row.getCell(0);
-            loginData[0] = loginCell.getStringCellValue();
-            Cell passwordCell = row.getCell(1);
-            loginData[1] = passwordCell.getStringCellValue();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return loginData;
-    }
+    private int rowCount;
+    private int cellIndex;
 
     public void setValueByColumnName(String columnName, String value){
         try{
             setUp();
-            int cellIndex = getColumnByName(columnName);
+            try{
+                cellIndex = getColumnByName(columnName);
+            } catch (Exception e) {
+                e.getLocalizedMessage();
+                e.getStackTrace();
+            }
             Row row = sheet.getRow(rowCount);
             Cell cell = row.createCell(cellIndex);
             cell.setCellValue(value);
@@ -65,10 +40,15 @@ public class ExcelDriver {
         }
     }
 
-    public String getValueByColumnName(String columnName){
+    public String getValueByColumnName(String columnName) throws Exception {
         try{
             setUp();
-            int cellIndex = getColumnByName(columnName);
+            try{
+                cellIndex = getColumnByName(columnName);
+            } catch (Exception e) {
+                e.getLocalizedMessage();
+                e.getStackTrace();
+            }
             Row row = sheet.getRow(rowCount);
             Cell cell = row.getCell(cellIndex);
             String cellValue = cell.getRichStringCellValue().getString();
@@ -77,7 +57,7 @@ public class ExcelDriver {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Invalid column name";
+        throw new Exception("Invalid column name");
     }
 
     private void setUp(){
@@ -92,13 +72,13 @@ public class ExcelDriver {
         }
     }
 
-    private int getColumnByName(String columnName){
+    private int getColumnByName(String columnName) throws Exception {
         Row row = sheet.getRow(0);
         for(Cell cell : row){
             if(cell.getRichStringCellValue().getString().trim().equalsIgnoreCase(columnName)){
                 return cell.getColumnIndex();
             }
         }
-        return -1;
+        throw new Exception("Invalid column name");
     }
 }

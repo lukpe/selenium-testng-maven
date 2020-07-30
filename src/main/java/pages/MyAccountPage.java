@@ -11,7 +11,10 @@ import org.test.ExcelDriver;
 public class MyAccountPage {
     public WebDriver driver;
     private final WebDriverWait wait;
-    private ExcelDriver excel;
+    private final ExcelDriver excel;
+    private String firstName;
+    private String lastName;
+    private String email;
 
     public MyAccountPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -45,9 +48,14 @@ public class MyAccountPage {
     }
 
     public boolean verifyPersonalInformation() {
-        String firstName = excel.getValueByColumnName("firstname");
-        String lastName = excel.getValueByColumnName("lastname");
-        String email = excel.getValueByColumnName("email");
+        try {
+            firstName = excel.getValueByColumnName("firstname");
+            lastName = excel.getValueByColumnName("lastname");
+            email = excel.getValueByColumnName("email");
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            e.printStackTrace();
+        }
 
         personalInformation.click();
         boolean fNameCorrect = accountFirstName.getAttribute("value").equalsIgnoreCase(firstName);
@@ -55,9 +63,4 @@ public class MyAccountPage {
         boolean emailCorrect = accountEmail.getAttribute("value").equalsIgnoreCase(email);
         return fNameCorrect && lNameCorrect && emailCorrect;
     }
-
-    public void goHome(){
-        home.click();
-    }
-
 }

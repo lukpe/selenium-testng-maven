@@ -9,7 +9,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.test.ExcelDriver;
@@ -105,35 +107,31 @@ public class LoginPage {
     WebElement submitLogin;
 
     public void createAccount() {
-        String[][] clientData = new String[11][2];
+        Map<String,String> accountData = new TreeMap<>();
+
         String firstName = "Jimmy";
+        accountData.put("firstname",firstName);
         String lastName = "Page";
+        accountData.put("lastname",lastName);
 
         //Generate email and password
-        Random rnd = new Random();
-        int rndNum = rnd.nextInt(10000);
-        String generatedEmail = firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test";
-        String generatedPassword = "Test" + rndNum + "!";
-        //Write login data to excel sheet
-        excel.writeLoginData(generatedEmail, generatedPassword);
+        int rndNum = getRndInt(10000,99999);
+        accountData.put("email",firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test");
+        accountData.put("password","Test" + rndNum + "!");
 
         //Create an account
-        emailCreate.sendKeys(generatedEmail);
+        emailCreate.sendKeys(accountData.get("email"));
         submitCreate.click();
         //Title
         gender.click();
         //First name
-        clientData[0][0] = "firstname";
-        clientData[0][1] = firstName;
-        customerFirstName.sendKeys(clientData[0][1]);
+        customerFirstName.sendKeys(firstName);
         //Last name
-        clientData[1][0] = "lastname";
-        clientData[1][1] = lastName;
-        customerLastName.sendKeys(clientData[1][1]);
+        customerLastName.sendKeys(lastName);
         //Email
-        wait.until(ExpectedConditions.attributeToBe(emailField, "value", generatedEmail));
+        wait.until(ExpectedConditions.attributeToBe(emailField, "value", accountData.get("email")));
         //Password
-        passwordField.sendKeys(generatedPassword);
+        passwordField.sendKeys(accountData.get("password"));
         //Date of Birth
         selectValue(years, 2);
         selectValue(months, 1);
@@ -146,59 +144,54 @@ public class LoginPage {
         wait.until(ExpectedConditions.attributeToBe(addressFirstName,"value",firstName));
         wait.until(ExpectedConditions.attributeToBe(addressLastName,"value",lastName));
 
-        clientData[2][0] = "company";
-        clientData[2][1] = "Test Co.";
-        addressCompany.sendKeys(clientData[2][1]);
+        accountData.put("company","Test Co.");
+        addressCompany.sendKeys(accountData.get("company"));
 
-        clientData[3][0] = "address1";
-        clientData[3][1] = "Selenium St. " + getRndInt(100,999);
-        addressLine1.sendKeys(clientData[3][1]);
+        accountData.put("address1","Selenium St. " + getRndInt(100,999));
+        addressLine1.sendKeys(accountData.get("address1"));
 
-        clientData[4][0] = "address2";
-        clientData[4][1] = "Building C" + getRndInt(1,99) + " Penthouse";
-        addressLine2.sendKeys(clientData[4][1]);
+        accountData.put("address2","Building C" + getRndInt(1,99) + " Penthouse");
+        addressLine2.sendKeys(accountData.get("address2"));
 
-        clientData[5][0] = "city";
-        clientData[5][1] = "Kosciusko";
-        addressCity.sendKeys(clientData[5][1]);
+        accountData.put("city","Kosciusko");
+        addressCity.sendKeys(accountData.get("city"));
 
         selectValue(addressState, 1);
         Select select = new Select(addressState);
         WebElement option = select.getFirstSelectedOption();
-        clientData[6][0] = "id_state";
-        clientData[6][1] = option.getText();
+        accountData.put("id_state",option.getText());
 
-        clientData[7][0] = "id_country";
-        clientData[7][1] = "United States";
+        accountData.put("id_country","United States");
 
-        clientData[8][0] = "postcode";
-        clientData[8][1] = String.valueOf(getRndInt(10000,99999));
-        addressPostcode.sendKeys(clientData[8][1]);
+        accountData.put("postcode",String.valueOf(getRndInt(10000,99999)));
+        addressPostcode.sendKeys(accountData.get("postcode"));
 
         addressOther.sendKeys("Selenium test client");
 
-        clientData[9][0] = "phone";
-        clientData[9][1] = "(" + getRndInt(100,999) + ")" + getRndInt(100,999) + "-" + getRndInt(1000,9999);
-        addressPhone.sendKeys(clientData[9][1]);
+        accountData.put("phone","(" + getRndInt(100,999) + ")" + getRndInt(100,999) + "-" + getRndInt(1000,9999));
+        addressPhone.sendKeys(accountData.get("phone"));
 
-        clientData[10][0] = "phone_mobile";
-        clientData[10][1] = getRndInt(100,999) + "-" + getRndInt(100,999) + "-" + getRndInt(1000,9999);
-        addressMobile.sendKeys(clientData[10][1]);
+        accountData.put("phone_mobile",getRndInt(100,999) + "-" + getRndInt(100,999) + "-" + getRndInt(1000,9999));
+        addressMobile.sendKeys(accountData.get("phone_mobile"));
 
         addressAlias.clear();
         addressAlias.sendKeys("Test Address");
         //Register
         submitAccount.click();
 
-        for (String[] clientDatum : clientData) {
-            excel.setValueByColumnName(clientDatum[0], clientDatum[1]);
+        for(Map.Entry<String,String> entry: accountData.entrySet()){
+            excel.setValueByColumnName(entry.getKey(),entry.getValue());
         }
     }
 
     public void signIn() {
-        String[] loginData = excel.getLoginData();
-        emailField.sendKeys(loginData[0]);
-        passwordField.sendKeys(loginData[1]);
+        try{
+            emailField.sendKeys(excel.getValueByColumnName("email"));
+            passwordField.sendKeys(excel.getValueByColumnName("password"));
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            e.getStackTrace();
+        }
         submitLogin.click();
     }
 
