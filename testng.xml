@@ -4,9 +4,9 @@
     <listeners>
         <listener class-name="org.test.utils.Listeners"/>
     </listeners>
-    <test verbose="2" name="Scenario_01" enabled="true">
+    <test verbose="2" name="Scenario_01" enabled="false">
         <classes>
-            <class name="org.test.Scenario_01_HomePage"/>
+            <class name="org.test.Scenario_01_VerifyHomePage"/>
         </classes>
     </test>
     <test verbose="2" name="Scenario_02" enabled="true">
@@ -14,7 +14,7 @@
             <class name="org.test.Scenario_02_CreateAccount"/>
         </classes>
     </test>
-    <test verbose="2" name="Scenario_03" enabled="true">
+    <test verbose="2" name="Scenario_03" enabled="false">
         <classes>
             <class name="org.test.Scenario_03_OrderProduct">
                 <parameter name="product" value="blouse"/>

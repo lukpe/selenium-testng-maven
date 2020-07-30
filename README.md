@@ -34,7 +34,7 @@ Selenium framework for testing sample e-commerce page ([automationpractice.com](
 * login credentials saved after test -> `./resources/LoginData.xls`
 
 ## scenarios
-### [Scenario_01_HomePage](/src/test/java/org/test/Scenario_01_HomePage.java)
+### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
 * Check for presence/validate: _page title, logo image, search bar, shopping cart ,"Sign in" link_
 ### [Scenario_02_CreateAccount](/src/test/java/org/test/Scenario_02_CreateAccount.java)
 1. Create account (random generated e-mail and password).

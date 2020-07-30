@@ -10,7 +10,7 @@ import java.io.IOException;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class Scenario_01_HomePage extends Base {
+public class Scenario_01_VerifyHomePage extends Base {
     HomePage hp;
 
     @BeforeClass
