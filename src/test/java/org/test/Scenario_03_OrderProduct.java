@@ -38,17 +38,8 @@ public class Scenario_03_OrderProduct extends Base {
         actions = new Actions(driver);
     }
 
-    @Test(priority = 1)
-    public void logIn() {
-        String[] loginData = excel.getLoginData();
-        hp.signIn();
-        lp.signIn(loginData[0], loginData[1]);
-        map.goHome();
-        assertTrue(hp.checkLogo());
-    }
-
     @Parameters({"product"})
-    @Test(priority = 2)
+    @Test(priority = 1)
     public void addToCart(String product) {
         product = product.toLowerCase();
         hp.searchProduct(product);
@@ -60,21 +51,26 @@ public class Scenario_03_OrderProduct extends Base {
     }
 
     @Parameters({"product"})
-    @Test(priority = 3)
+    @Test(priority = 2)
     public void checkOut(String product) {
         product = product.toLowerCase();
         hp.proceedCheckOut();
-        assertTrue(op.checkCartTitle("1 Product"));
+        assertTrue(op.verifyProductQtyTitle("1 Product"));
         assertTrue(op.verifyProductName(product));
         assertTrue(op.verifyProductQty(1));
         op.addProduct();
         assertTrue(op.verifyProductQty(2));
-        assertTrue(op.checkCartTitle("2 Products"));
+        assertTrue(op.verifyProductQtyTitle("2 Products"));
         op.removeProduct();
         assertTrue(op.verifyProductQty(1));
-        assertTrue(op.checkCartTitle("1 Product"));
+        assertTrue(op.verifyProductQtyTitle("1 Product"));
         op.proceedCheckOut();
-        //TODO Address verification
+        //Sign In
+        String[] loginData = excel.getLoginData();
+        lp.signIn(loginData[0], loginData[1]);
+        //Address
+        assertTrue(op.verifyTitle("ADDRESSES"));
+
     }
 
     @AfterClass

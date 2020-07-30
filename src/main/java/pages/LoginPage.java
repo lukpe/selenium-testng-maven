@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LoginPage {
@@ -100,15 +101,20 @@ public class LoginPage {
     WebElement submitLogin;
 
     public String[][] createAccount(String firstName, String lastName, String email, String password) {
+        String[][] clientData = new String[11][2];
         //Create an account
         emailCreate.sendKeys(email);
         submitCreate.click();
         //Title
         gender.click();
         //First name
-        customerFirstName.sendKeys(firstName);
+        clientData[0][0] = "firstname";
+        clientData[0][1] = firstName;
+        customerFirstName.sendKeys(clientData[0][1]);
         //Last name
-        customerLastName.sendKeys(lastName);
+        clientData[1][0] = "lastname";
+        clientData[1][1] = lastName;
+        customerLastName.sendKeys(clientData[1][1]);
         //Email
         wait.until(ExpectedConditions.attributeToBe(emailField, "value", email));
         //Password
@@ -125,53 +131,53 @@ public class LoginPage {
         wait.until(ExpectedConditions.attributeToBe(addressFirstName,"value",firstName));
         wait.until(ExpectedConditions.attributeToBe(addressLastName,"value",lastName));
 
-        String[][] addressData = new String[9][2];
+        Random rand = new Random();
 
-        addressData[0][0] = "company";
-        addressData[0][1] = "Test Co.";
-        addressCompany.sendKeys(addressData[0][1]);
+        clientData[2][0] = "company";
+        clientData[2][1] = "Test Co.";
+        addressCompany.sendKeys(clientData[2][1]);
 
-        addressData[1][0] = "address1";
-        addressData[1][1] = "Selenium St. 123";
-        addressLine1.sendKeys(addressData[1][1]);
+        clientData[3][0] = "address1";
+        clientData[3][1] = "Selenium St. " + getRndInt(100,999);
+        addressLine1.sendKeys(clientData[3][1]);
 
-        addressData[2][0] = "address2";
-        addressData[2][1] = "Building C Penthouse";
-        addressLine2.sendKeys(addressData[2][1]);
+        clientData[4][0] = "address2";
+        clientData[4][1] = "Building C" + getRndInt(1,99) + " Penthouse";
+        addressLine2.sendKeys(clientData[4][1]);
 
-        addressData[3][0] = "city";
-        addressData[3][1] = "Kosciusko";
-        addressCity.sendKeys(addressData[3][1]);
+        clientData[5][0] = "city";
+        clientData[5][1] = "Kosciusko";
+        addressCity.sendKeys(clientData[5][1]);
 
         selectValue(addressState, 1);
         Select select = new Select(addressState);
         WebElement option = select.getFirstSelectedOption();
-        addressData[4][0] = "id_state";
-        addressData[4][1] = option.getText();
+        clientData[6][0] = "id_state";
+        clientData[6][1] = option.getText();
 
-        addressData[5][0] = "id_country";
-        addressData[5][1] = "United States";
+        clientData[7][0] = "id_country";
+        clientData[7][1] = "United States";
 
-        addressData[6][0] = "postcode";
-        addressData[6][1] = "12345";
-        addressPostcode.sendKeys(addressData[6][1]);
+        clientData[8][0] = "postcode";
+        clientData[8][1] = String.valueOf(getRndInt(10000,99999));
+        addressPostcode.sendKeys(clientData[8][1]);
 
         addressOther.sendKeys("Selenium test client");
 
-        addressData[7][0] = "phone";
-        addressData[7][1] = "(123) 456-7890";
-        addressPhone.sendKeys(addressData[7][1]);
+        clientData[9][0] = "phone";
+        clientData[9][1] = "(" + getRndInt(100,999) + ")" + getRndInt(100,999) + "-" + getRndInt(1000,9999);
+        addressPhone.sendKeys(clientData[9][1]);
 
-        addressData[8][0] = "phone_mobile";
-        addressData[8][1] = "123-456-7890";
-        addressMobile.sendKeys(addressData[8][1]);
+        clientData[10][0] = "phone_mobile";
+        clientData[10][1] = getRndInt(100,999) + "-" + getRndInt(100,999) + "-" + getRndInt(1000,9999);
+        addressMobile.sendKeys(clientData[10][1]);
 
         addressAlias.clear();
         addressAlias.sendKeys("Test Address");
         //Register
         submitAccount.click();
 
-        return addressData;
+        return clientData;
     }
 
     public void signIn(String email, String password) {
@@ -186,5 +192,13 @@ public class LoginPage {
         int selectSize = selectList.size();
         int randomIndex = ThreadLocalRandom.current().nextInt(startFrom, selectSize);
         select.selectByIndex(randomIndex);
+    }
+
+    private static int getRndInt(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }

@@ -22,8 +22,8 @@ public class Scenario_02_CreateAccount extends Base {
     LoginPage lp;
     MyAccountPage map;
     ExcelDriver excel;
-    private final String firstName = "John";
-    private final String lastName = "Kowalski";
+    private final String firstName = "Jack";
+    private final String lastName = "Bauer";
     private String randomEmail;
     private String randomPassword;
 
@@ -44,7 +44,7 @@ public class Scenario_02_CreateAccount extends Base {
         hp.signIn();
         String[][] addressData = lp.createAccount(firstName, lastName, randomEmail, randomPassword);
         for (String[] addressDatum : addressData) {
-            excel.setValueByColumn(addressDatum[0], addressDatum[1]);
+            excel.setValueByColumnName(addressDatum[0], addressDatum[1]);
         }
         assertTrue(map.verifyPageHeader());
     }
@@ -61,8 +61,7 @@ public class Scenario_02_CreateAccount extends Base {
     private void generateLoginData(){
         //Generate email and password
         Random rnd = new Random();
-        int upperBound = 10000;
-        int rndNum = rnd.nextInt(upperBound);
+        int rndNum = rnd.nextInt(10000);
         randomEmail = firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test";
         randomPassword = "Test" + rndNum + "!";
         //Write login data to excel sheet

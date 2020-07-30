@@ -33,22 +33,6 @@ public class ExcelDriver {
         }
     }
 
-    public void setValueByColumn(String columnName, String value){
-        try{
-            setUp();
-            int cellIndex = getColumnByName(columnName);
-            Row row = sheet.getRow(rowCount);
-            Cell cell = row.createCell(cellIndex);
-            cell.setCellValue(value);
-            fis.close();
-            FileOutputStream fos = new FileOutputStream(file);
-            loginData.write(fos);
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public String[] getLoginData(){
         String[] loginData = new String[2];
         try {
@@ -64,6 +48,39 @@ public class ExcelDriver {
         }
         return loginData;
     }
+
+    public void setValueByColumnName(String columnName, String value){
+        try{
+            setUp();
+            int cellIndex = getColumnByName(columnName);
+            Row row = sheet.getRow(rowCount);
+            Cell cell = row.createCell(cellIndex);
+            cell.setCellValue(value);
+            fis.close();
+            FileOutputStream fos = new FileOutputStream(file);
+            loginData.write(fos);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getValueByColumnName(String columnName){
+        try{
+            setUp();
+            int cellIndex = getColumnByName(columnName);
+            Row row = sheet.getRow(rowCount);
+            Cell cell = row.getCell(cellIndex);
+            String cellValue = cell.getRichStringCellValue().getString();
+            fis.close();
+            return cellValue;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Invalid column name";
+    }
+
+
 
     private void setUp(){
         try {

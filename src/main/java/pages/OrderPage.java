@@ -38,9 +38,17 @@ public class OrderPage {
     @FindBy(xpath = "//p//a[@title='Proceed to checkout']")
     WebElement checkOut;
 
-    public Boolean checkCartTitle(String productNumber){
+    @FindBy(className = "page-heading")
+    WebElement pageHeading;
+
+    public Boolean verifyProductQtyTitle(String productNumber){
         wait.until(ExpectedConditions.visibilityOf(cartTitle));
         return cartTitle.getText().contentEquals("SHOPPING-CART SUMMARY\nYour shopping cart contains: " + productNumber);
+    }
+
+    public Boolean verifyTitle(String title){
+        wait.until(ExpectedConditions.visibilityOf(pageHeading));
+        return pageHeading.getText().contentEquals(title);
     }
 
     public Boolean verifyProductName(String input){
@@ -52,11 +60,11 @@ public class OrderPage {
     }
 
     public void addProduct(){
-        new Actions(driver).moveToElement(iconPlus).click().pause(1000).perform();
+        new Actions(driver).moveToElement(iconPlus).click().pause(2000).perform();
     }
 
     public void removeProduct() {
-        new Actions(driver).moveToElement(iconMinus).click().pause(1000).perform();
+        new Actions(driver).moveToElement(iconMinus).click().pause(2000).perform();
     }
 
     public void proceedCheckOut(){
