@@ -125,33 +125,46 @@ public class LoginPage {
         wait.until(ExpectedConditions.attributeToBe(addressFirstName,"value",firstName));
         wait.until(ExpectedConditions.attributeToBe(addressLastName,"value",lastName));
 
-        String[][] addressData = new String[8][2];
+        String[][] addressData = new String[9][2];
+
         addressData[0][0] = "company";
         addressData[0][1] = "Test Co.";
         addressCompany.sendKeys(addressData[0][1]);
+
         addressData[1][0] = "address1";
         addressData[1][1] = "Selenium St. 123";
         addressLine1.sendKeys(addressData[1][1]);
+
         addressData[2][0] = "address2";
         addressData[2][1] = "Building C Penthouse";
         addressLine2.sendKeys(addressData[2][1]);
+
         addressData[3][0] = "city";
         addressData[3][1] = "Kosciusko";
         addressCity.sendKeys(addressData[3][1]);
-        //TODO State
+
         selectValue(addressState, 1);
-        addressData[4][0] = "country";
-        addressData[4][1] = "United States";
-        addressData[5][0] = "postcode";
-        addressData[5][1] = "12345";
-        addressPostcode.sendKeys(addressData[5][1]);
+        Select select = new Select(addressState);
+        WebElement option = select.getFirstSelectedOption();
+        addressData[4][0] = "id_state";
+        addressData[4][1] = option.getText();
+
+        addressData[5][0] = "id_country";
+        addressData[5][1] = "United States";
+
+        addressData[6][0] = "postcode";
+        addressData[6][1] = "12345";
+        addressPostcode.sendKeys(addressData[6][1]);
+
         addressOther.sendKeys("Selenium test client");
-        addressData[6][0] = "phone";
-        addressData[6][1] = "(123) 456-7890";
-        addressPhone.sendKeys(addressData[6][1]);
-        addressData[7][0] = "phone_mobile";
-        addressData[7][1] = "123-456-7890";
-        addressMobile.sendKeys(addressData[7][1]);
+
+        addressData[7][0] = "phone";
+        addressData[7][1] = "(123) 456-7890";
+        addressPhone.sendKeys(addressData[7][1]);
+
+        addressData[8][0] = "phone_mobile";
+        addressData[8][1] = "123-456-7890";
+        addressMobile.sendKeys(addressData[8][1]);
 
         addressAlias.clear();
         addressAlias.sendKeys("Test Address");
