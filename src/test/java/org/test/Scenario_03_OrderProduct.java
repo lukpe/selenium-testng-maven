@@ -3,7 +3,6 @@ package org.test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.test.utils.ExcelDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -70,7 +69,6 @@ public class Scenario_03_OrderProduct extends Base {
         lp.signIn(loginData[0], loginData[1]);
         //Address
         assertTrue(op.verifyTitle("ADDRESSES"));
-
     }
 
     @AfterClass

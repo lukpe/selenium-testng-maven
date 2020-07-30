@@ -1,4 +1,4 @@
-package org.test.utils;
+package org.test;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.functions.Column;
