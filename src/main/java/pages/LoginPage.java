@@ -99,7 +99,7 @@ public class LoginPage {
     @FindBy(id = "SubmitLogin")
     WebElement submitLogin;
 
-    public void createAccount(String firstName, String lastName, String email, String password) {
+    public String[][] createAccount(String firstName, String lastName, String email, String password) {
         //Create an account
         emailCreate.sendKeys(email);
         submitCreate.click();
@@ -124,19 +124,41 @@ public class LoginPage {
         //Your Address
         wait.until(ExpectedConditions.attributeToBe(addressFirstName,"value",firstName));
         wait.until(ExpectedConditions.attributeToBe(addressLastName,"value",lastName));
-        addressCompany.sendKeys("Test Co.");
-        addressLine1.sendKeys("Selenium St. 123");
-        addressLine2.sendKeys("Building C Penthouse");
-        addressCity.sendKeys("Kosciuszko");
+
+        String[][] addressData = new String[8][2];
+        addressData[0][0] = "company";
+        addressData[0][1] = "Test Co.";
+        addressCompany.sendKeys(addressData[0][1]);
+        addressData[1][0] = "address1";
+        addressData[1][1] = "Selenium St. 123";
+        addressLine1.sendKeys(addressData[1][1]);
+        addressData[2][0] = "address2";
+        addressData[2][1] = "Building C Penthouse";
+        addressLine2.sendKeys(addressData[2][1]);
+        addressData[3][0] = "city";
+        addressData[3][1] = "Kosciusko";
+        addressCity.sendKeys(addressData[3][1]);
+        //TODO State
         selectValue(addressState, 1);
-        addressPostcode.sendKeys("12345");
+        addressData[4][0] = "country";
+        addressData[4][1] = "United States";
+        addressData[5][0] = "postcode";
+        addressData[5][1] = "12345";
+        addressPostcode.sendKeys(addressData[5][1]);
         addressOther.sendKeys("Selenium test client");
-        addressPhone.sendKeys("(123) 456-7890");
-        addressMobile.sendKeys("123-456-7890");
+        addressData[6][0] = "phone";
+        addressData[6][1] = "(123) 456-7890";
+        addressPhone.sendKeys(addressData[6][1]);
+        addressData[7][0] = "phone_mobile";
+        addressData[7][1] = "123-456-7890";
+        addressMobile.sendKeys(addressData[7][1]);
+
         addressAlias.clear();
         addressAlias.sendKeys("Test Address");
         //Register
         submitAccount.click();
+
+        return addressData;
     }
 
     public void signIn(String email, String password) {

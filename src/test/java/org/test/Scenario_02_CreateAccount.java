@@ -21,6 +21,7 @@ public class Scenario_02_CreateAccount extends Base {
     HomePage hp;
     LoginPage lp;
     MyAccountPage map;
+    ExcelDriver excel;
     private final String firstName = "John";
     private final String lastName = "Kowalski";
     private String randomEmail;
@@ -33,6 +34,7 @@ public class Scenario_02_CreateAccount extends Base {
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver, wait);
+        excel = new ExcelDriver();
         generateLoginData();
     }
 
@@ -40,7 +42,10 @@ public class Scenario_02_CreateAccount extends Base {
     public void createAccount() {
         //Create an account
         hp.signIn();
-        lp.createAccount(firstName, lastName, randomEmail, randomPassword);
+        String[][] addressData = lp.createAccount(firstName, lastName, randomEmail, randomPassword);
+        for (String[] addressDatum : addressData) {
+            excel.setValueByColumn(addressDatum[0], addressDatum[1]);
+        }
         assertTrue(map.verifyPageHeader());
     }
 
@@ -61,7 +66,6 @@ public class Scenario_02_CreateAccount extends Base {
         randomEmail = firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test";
         randomPassword = "Test" + rndNum + "!";
         //Write login data to excel sheet
-        ExcelDriver excel = new ExcelDriver();
         excel.writeLoginData(randomEmail, randomPassword);
     }
 

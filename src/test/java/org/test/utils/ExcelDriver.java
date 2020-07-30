@@ -1,10 +1,8 @@
 package org.test.utils;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.formula.functions.Column;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +33,22 @@ public class ExcelDriver {
         }
     }
 
+    public void setValueByColumn(String columnName, String value){
+        try{
+            setUp();
+            int cellIndex = getColumnByName(columnName);
+            Row row = sheet.getRow(rowCount);
+            Cell cell = row.createCell(cellIndex);
+            cell.setCellValue(value);
+            fis.close();
+            FileOutputStream fos = new FileOutputStream(file);
+            loginData.write(fos);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String[] getLoginData(){
         String[] loginData = new String[2];
         try {
@@ -45,7 +59,6 @@ public class ExcelDriver {
             Cell passwordCell = row.getCell(1);
             loginData[1] = passwordCell.getStringCellValue();
             fis.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,5 +75,15 @@ public class ExcelDriver {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int getColumnByName(String columnName){
+        Row row = sheet.getRow(0);
+        for(Cell cell : row){
+            if(cell.getRichStringCellValue().getString().trim().equalsIgnoreCase(columnName)){
+                return cell.getColumnIndex();
+            }
+        }
+        return -1;
     }
 }
