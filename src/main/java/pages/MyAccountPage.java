@@ -53,7 +53,7 @@ public class MyAccountPage {
             lastName = excel.getValueByColumnName("lastname");
             email = excel.getValueByColumnName("email");
         } catch (Exception e) {
-            e.getLocalizedMessage();
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
 

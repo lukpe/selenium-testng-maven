@@ -189,8 +189,8 @@ public class LoginPage {
             emailField.sendKeys(excel.getValueByColumnName("email"));
             passwordField.sendKeys(excel.getValueByColumnName("password"));
         } catch (Exception e) {
-            e.getLocalizedMessage();
-            e.getStackTrace();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         submitLogin.click();
     }
