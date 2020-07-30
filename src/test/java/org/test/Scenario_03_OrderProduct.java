@@ -65,8 +65,7 @@ public class Scenario_03_OrderProduct extends Base {
         assertTrue(op.verifyProductQtyTitle("1 Product"));
         op.proceedCheckOut();
         //Sign In
-        String[] loginData = excel.getLoginData();
-        lp.signIn(loginData[0], loginData[1]);
+        lp.signIn();
         //Address
         assertTrue(op.verifyTitle("ADDRESSES"));
     }

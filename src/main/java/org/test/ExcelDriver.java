@@ -80,8 +80,6 @@ public class ExcelDriver {
         return "Invalid column name";
     }
 
-
-
     private void setUp(){
         try {
             file = new File(System.getProperty("user.dir") + "\\resources\\LoginData.xls");

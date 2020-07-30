@@ -6,15 +6,18 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.test.ExcelDriver;
 
 public class MyAccountPage {
     public WebDriver driver;
     private final WebDriverWait wait;
+    private ExcelDriver excel;
 
     public MyAccountPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
+        excel = new ExcelDriver();
     }
 
     @FindBy(className = "page-heading")
@@ -41,7 +44,11 @@ public class MyAccountPage {
         return pageHeader.getText().contentEquals("MY ACCOUNT");
     }
 
-    public boolean verifyPersonalInformation(String firstName, String lastName, String email) {
+    public boolean verifyPersonalInformation() {
+        String firstName = excel.getValueByColumnName("firstname");
+        String lastName = excel.getValueByColumnName("lastname");
+        String email = excel.getValueByColumnName("email");
+
         personalInformation.click();
         boolean fNameCorrect = accountFirstName.getAttribute("value").equalsIgnoreCase(firstName);
         boolean lNameCorrect = accountLastName.getAttribute("value").equalsIgnoreCase(lastName);

@@ -21,10 +21,6 @@ public class Scenario_02_CreateAccount extends Base {
     LoginPage lp;
     MyAccountPage map;
     ExcelDriver excel;
-    private final String firstName = "Jack";
-    private final String lastName = "Bauer";
-    private String randomEmail;
-    private String randomPassword;
 
     @BeforeClass
     public void setUp() throws IOException {
@@ -34,17 +30,13 @@ public class Scenario_02_CreateAccount extends Base {
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver, wait);
         excel = new ExcelDriver();
-        generateLoginData();
     }
 
     @Test(priority = 1)
     public void createAccount() {
         //Create an account
         hp.signIn();
-        String[][] addressData = lp.createAccount(firstName, lastName, randomEmail, randomPassword);
-        for (String[] addressDatum : addressData) {
-            excel.setValueByColumnName(addressDatum[0], addressDatum[1]);
-        }
+        lp.createAccount();
         assertTrue(map.verifyPageHeader());
     }
 
@@ -52,19 +44,9 @@ public class Scenario_02_CreateAccount extends Base {
     public void verifyAccount() {
         //Verify personal information
         hp.signOut();
-        lp.signIn(randomEmail, randomPassword);
+        lp.signIn();
         assertTrue(map.verifyPageHeader());
-        assertTrue(map.verifyPersonalInformation(firstName, lastName, randomEmail));
-    }
-
-    private void generateLoginData(){
-        //Generate email and password
-        Random rnd = new Random();
-        int rndNum = rnd.nextInt(10000);
-        randomEmail = firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test";
-        randomPassword = "Test" + rndNum + "!";
-        //Write login data to excel sheet
-        excel.writeLoginData(randomEmail, randomPassword);
+        assertTrue(map.verifyPersonalInformation());
     }
 
     @AfterClass

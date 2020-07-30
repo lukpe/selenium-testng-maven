@@ -12,14 +12,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.test.ExcelDriver;
+
 public class LoginPage {
     public WebDriver driver;
     private final WebDriverWait wait;
+    private final ExcelDriver excel;
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
+        excel = new ExcelDriver();
     }
 
     @FindBy(xpath = "//input[@id='email_create']")
@@ -100,10 +104,21 @@ public class LoginPage {
     @FindBy(id = "SubmitLogin")
     WebElement submitLogin;
 
-    public String[][] createAccount(String firstName, String lastName, String email, String password) {
+    public void createAccount() {
         String[][] clientData = new String[11][2];
+        String firstName = "Jimmy";
+        String lastName = "Page";
+
+        //Generate email and password
+        Random rnd = new Random();
+        int rndNum = rnd.nextInt(10000);
+        String generatedEmail = firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test";
+        String generatedPassword = "Test" + rndNum + "!";
+        //Write login data to excel sheet
+        excel.writeLoginData(generatedEmail, generatedPassword);
+
         //Create an account
-        emailCreate.sendKeys(email);
+        emailCreate.sendKeys(generatedEmail);
         submitCreate.click();
         //Title
         gender.click();
@@ -116,9 +131,9 @@ public class LoginPage {
         clientData[1][1] = lastName;
         customerLastName.sendKeys(clientData[1][1]);
         //Email
-        wait.until(ExpectedConditions.attributeToBe(emailField, "value", email));
+        wait.until(ExpectedConditions.attributeToBe(emailField, "value", generatedEmail));
         //Password
-        passwordField.sendKeys(password);
+        passwordField.sendKeys(generatedPassword);
         //Date of Birth
         selectValue(years, 2);
         selectValue(months, 1);
@@ -130,8 +145,6 @@ public class LoginPage {
         //Your Address
         wait.until(ExpectedConditions.attributeToBe(addressFirstName,"value",firstName));
         wait.until(ExpectedConditions.attributeToBe(addressLastName,"value",lastName));
-
-        Random rand = new Random();
 
         clientData[2][0] = "company";
         clientData[2][1] = "Test Co.";
@@ -177,12 +190,15 @@ public class LoginPage {
         //Register
         submitAccount.click();
 
-        return clientData;
+        for (String[] clientDatum : clientData) {
+            excel.setValueByColumnName(clientDatum[0], clientDatum[1]);
+        }
     }
 
-    public void signIn(String email, String password) {
-        emailField.sendKeys(email);
-        passwordField.sendKeys(password);
+    public void signIn() {
+        String[] loginData = excel.getLoginData();
+        emailField.sendKeys(loginData[0]);
+        passwordField.sendKeys(loginData[1]);
         submitLogin.click();
     }
 
