@@ -7,14 +7,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.test.ExcelDriver;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
-
-import org.test.ExcelDriver;
 
 public class LoginPage {
     public WebDriver driver;
@@ -107,17 +106,17 @@ public class LoginPage {
     WebElement submitLogin;
 
     public void createAccount() {
-        Map<String,String> accountData = new TreeMap<>();
+        Map<String, String> accountData = new TreeMap<>();
 
         String firstName = "Jimmy";
-        accountData.put("firstname",firstName);
+        accountData.put("firstname", firstName);
         String lastName = "Page";
-        accountData.put("lastname",lastName);
+        accountData.put("lastname", lastName);
 
         //Generate email and password
-        int rndNum = getRndInt(10000,99999);
-        accountData.put("email",firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test");
-        accountData.put("password","Test" + rndNum + "!");
+        int rndNum = getRndInt(10000, 99999);
+        accountData.put("email", firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test");
+        accountData.put("password", "Test" + rndNum + "!");
 
         //Create an account
         emailCreate.sendKeys(accountData.get("email"));
@@ -141,37 +140,37 @@ public class LoginPage {
         //Special offers
         specialOffers.click();
         //Your Address
-        wait.until(ExpectedConditions.attributeToBe(addressFirstName,"value",firstName));
-        wait.until(ExpectedConditions.attributeToBe(addressLastName,"value",lastName));
+        wait.until(ExpectedConditions.attributeToBe(addressFirstName, "value", firstName));
+        wait.until(ExpectedConditions.attributeToBe(addressLastName, "value", lastName));
 
-        accountData.put("company","Test Co.");
+        accountData.put("company", "Test Co.");
         addressCompany.sendKeys(accountData.get("company"));
 
-        accountData.put("address1","Selenium St. " + getRndInt(100,999));
+        accountData.put("address1", "Selenium St. " + getRndInt(100, 999));
         addressLine1.sendKeys(accountData.get("address1"));
 
-        accountData.put("address2","Building C" + getRndInt(1,99) + " Penthouse");
+        accountData.put("address2", "Building C" + getRndInt(1, 99) + " Penthouse");
         addressLine2.sendKeys(accountData.get("address2"));
 
-        accountData.put("city","Kosciusko");
+        accountData.put("city", "Kosciusko");
         addressCity.sendKeys(accountData.get("city"));
 
         selectValue(addressState, 1);
         Select select = new Select(addressState);
         WebElement option = select.getFirstSelectedOption();
-        accountData.put("id_state",option.getText());
+        accountData.put("id_state", option.getText());
 
-        accountData.put("id_country","United States");
+        accountData.put("id_country", "United States");
 
-        accountData.put("postcode",String.valueOf(getRndInt(10000,99999)));
+        accountData.put("postcode", String.valueOf(getRndInt(10000, 99999)));
         addressPostcode.sendKeys(accountData.get("postcode"));
 
         addressOther.sendKeys("Selenium test client");
 
-        accountData.put("phone","(" + getRndInt(100,999) + ")" + getRndInt(100,999) + "-" + getRndInt(1000,9999));
+        accountData.put("phone", "(" + getRndInt(100, 999) + ")" + getRndInt(100, 999) + "-" + getRndInt(1000, 9999));
         addressPhone.sendKeys(accountData.get("phone"));
 
-        accountData.put("phone_mobile",getRndInt(100,999) + "-" + getRndInt(100,999) + "-" + getRndInt(1000,9999));
+        accountData.put("phone_mobile", getRndInt(100, 999) + "-" + getRndInt(100, 999) + "-" + getRndInt(1000, 9999));
         addressMobile.sendKeys(accountData.get("phone_mobile"));
 
         addressAlias.clear();
@@ -180,13 +179,13 @@ public class LoginPage {
         submitAccount.click();
 
         excel.addNewRow();
-        for(Map.Entry<String,String> entry: accountData.entrySet()){
-            excel.setValueByColumnName(entry.getKey(),entry.getValue());
+        for (Map.Entry<String, String> entry : accountData.entrySet()) {
+            excel.setValueByColumnName(entry.getKey(), entry.getValue());
         }
     }
 
     public void signIn() {
-        try{
+        try {
             emailField.sendKeys(excel.getValueByColumnName("email"));
             passwordField.sendKeys(excel.getValueByColumnName("password"));
         } catch (Exception e) {

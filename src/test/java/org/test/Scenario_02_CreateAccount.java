@@ -10,7 +10,6 @@ import pages.LoginPage;
 import pages.MyAccountPage;
 
 import java.io.IOException;
-import java.util.Random;
 
 import static org.testng.Assert.assertTrue;
 

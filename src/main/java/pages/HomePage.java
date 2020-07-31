@@ -67,7 +67,7 @@ public class HomePage {
         return shoppingCart.getText().matches("^Cart " + quantity + " Products?$");
     }
 
-    public void proceedCheckOut(){
+    public void proceedCheckOut() {
         new Actions(driver).pause(500).moveToElement(shoppingCart).pause(500).moveToElement(checkOut).click().perform();
     }
 }

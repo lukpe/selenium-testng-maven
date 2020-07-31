@@ -40,7 +40,7 @@ public class Scenario_01_VerifyHomePage extends Base {
     }
 
     @Test
-    public void validateSignInLink(){
+    public void validateSignInLink() {
         assertTrue(hp.checkSignIn());
     }
 

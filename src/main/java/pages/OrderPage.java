@@ -17,7 +17,7 @@ public class OrderPage {
     public OrderPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//h1[@id='cart_title']")
@@ -41,25 +41,25 @@ public class OrderPage {
     @FindBy(className = "page-heading")
     WebElement pageHeading;
 
-    public Boolean verifyProductQtyTitle(String productNumber){
+    public Boolean verifyProductQtyTitle(String productNumber) {
         wait.until(ExpectedConditions.visibilityOf(cartTitle));
         return cartTitle.getText().contentEquals("SHOPPING-CART SUMMARY\nYour shopping cart contains: " + productNumber);
     }
 
-    public Boolean verifyTitle(String title){
+    public Boolean verifyTitle(String title) {
         wait.until(ExpectedConditions.visibilityOf(pageHeading));
         return pageHeading.getText().contentEquals(title);
     }
 
-    public Boolean verifyProductName(String input){
+    public Boolean verifyProductName(String input) {
         return productName.getText().equalsIgnoreCase(input);
     }
 
-    public Boolean verifyProductQty(int quantity){
+    public Boolean verifyProductQty(int quantity) {
         return productQuantity.getAttribute("value").contentEquals(String.valueOf(quantity));
     }
 
-    public void addProduct(){
+    public void addProduct() {
         new Actions(driver).moveToElement(iconPlus).click().pause(2000).perform();
     }
 
@@ -67,7 +67,7 @@ public class OrderPage {
         new Actions(driver).moveToElement(iconMinus).click().pause(2000).perform();
     }
 
-    public void proceedCheckOut(){
+    public void proceedCheckOut() {
         checkOut.click();
     }
 }
