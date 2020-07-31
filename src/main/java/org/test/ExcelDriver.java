@@ -44,8 +44,8 @@ public class ExcelDriver {
                 try {
                     cellIndex = getColumnByName(columnName);
                 } catch (Exception e) {
-                    e.getLocalizedMessage();
-                    e.getStackTrace();
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
                 Row row = sheet.getRow(sheet.getLastRowNum());
                 Cell cell = row.createCell(cellIndex);
@@ -64,8 +64,8 @@ public class ExcelDriver {
             try {
                 cellIndex = getColumnByName(columnName);
             } catch (Exception e) {
-                e.getLocalizedMessage();
-                e.getStackTrace();
+                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
             Row row = sheet.getRow(sheet.getLastRowNum());
             Cell cell = row.getCell(cellIndex);
