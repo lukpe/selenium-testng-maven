@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ExcelDriver {
     File file;
@@ -18,7 +20,7 @@ public class ExcelDriver {
     Sheet sheet;
     private int cellIndex;
 
-    public void addNewRow(){
+    public void addNewRow() {
         try {
             setUp();
             sheet.createRow(sheet.getLastRowNum() + 1);
@@ -29,18 +31,26 @@ public class ExcelDriver {
         }
     }
 
-    public void setValueByColumnName(String columnName, String value){
-        try{
+    public void setValueByColumnName(String columnName, String value) {
+        try {
             setUp();
-            try{
-                cellIndex = getColumnByName(columnName);
-            } catch (Exception e) {
-                e.getLocalizedMessage();
-                e.getStackTrace();
+            for (int i = 0; i < 2; i++) {
+                if (i == 1) {
+                    columnName = "write_date";
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date date = new Date(System.currentTimeMillis());
+                    value = sdf.format(date);
+                }
+                try {
+                    cellIndex = getColumnByName(columnName);
+                } catch (Exception e) {
+                    e.getLocalizedMessage();
+                    e.getStackTrace();
+                }
+                Row row = sheet.getRow(sheet.getLastRowNum());
+                Cell cell = row.createCell(cellIndex);
+                cell.setCellValue(value);
             }
-            Row row = sheet.getRow(sheet.getLastRowNum());
-            Cell cell = row.createCell(cellIndex);
-            cell.setCellValue(value);
             fis.close();
             writeFile();
         } catch (IOException e) {
@@ -49,9 +59,9 @@ public class ExcelDriver {
     }
 
     public String getValueByColumnName(String columnName) throws Exception {
-        try{
+        try {
             setUp();
-            try{
+            try {
                 cellIndex = getColumnByName(columnName);
             } catch (Exception e) {
                 e.getLocalizedMessage();
@@ -68,7 +78,7 @@ public class ExcelDriver {
         throw new Exception("Invalid column name");
     }
 
-    private void setUp(){
+    private void setUp() {
         try {
             file = new File(System.getProperty("user.dir") + "\\resources\\LoginData.xls");
             fis = new FileInputStream(file);
@@ -79,7 +89,7 @@ public class ExcelDriver {
         }
     }
 
-    private void writeFile(){
+    private void writeFile() {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             loginData.write(fos);
@@ -91,8 +101,8 @@ public class ExcelDriver {
 
     private int getColumnByName(String columnName) throws Exception {
         Row row = sheet.getRow(0);
-        for(Cell cell : row){
-            if(cell.getRichStringCellValue().getString().trim().equalsIgnoreCase(columnName)){
+        for (Cell cell : row) {
+            if (cell.getRichStringCellValue().getString().trim().equalsIgnoreCase(columnName)) {
                 return cell.getColumnIndex();
             }
         }
