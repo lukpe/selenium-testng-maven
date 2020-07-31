@@ -16,8 +16,18 @@ public class ExcelDriver {
     FileInputStream fis;
     Workbook loginData;
     Sheet sheet;
-    private int rowCount;
     private int cellIndex;
+
+    public void addNewRow(){
+        try {
+            setUp();
+            sheet.createRow(sheet.getLastRowNum() + 1);
+            fis.close();
+            writeFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setValueByColumnName(String columnName, String value){
         try{
@@ -28,13 +38,11 @@ public class ExcelDriver {
                 e.getLocalizedMessage();
                 e.getStackTrace();
             }
-            Row row = sheet.getRow(rowCount);
+            Row row = sheet.getRow(sheet.getLastRowNum());
             Cell cell = row.createCell(cellIndex);
             cell.setCellValue(value);
             fis.close();
-            FileOutputStream fos = new FileOutputStream(file);
-            loginData.write(fos);
-            fos.close();
+            writeFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +57,7 @@ public class ExcelDriver {
                 e.getLocalizedMessage();
                 e.getStackTrace();
             }
-            Row row = sheet.getRow(rowCount);
+            Row row = sheet.getRow(sheet.getLastRowNum());
             Cell cell = row.getCell(cellIndex);
             String cellValue = cell.getRichStringCellValue().getString();
             fis.close();
@@ -66,7 +74,16 @@ public class ExcelDriver {
             fis = new FileInputStream(file);
             loginData = new HSSFWorkbook(fis);
             sheet = loginData.getSheet("Login");
-            rowCount = sheet.getLastRowNum();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            loginData.write(fos);
+            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

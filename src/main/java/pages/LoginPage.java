@@ -179,6 +179,7 @@ public class LoginPage {
         //Register
         submitAccount.click();
 
+        excel.addNewRow();
         for(Map.Entry<String,String> entry: accountData.entrySet()){
             excel.setValueByColumnName(entry.getKey(),entry.getValue());
         }
