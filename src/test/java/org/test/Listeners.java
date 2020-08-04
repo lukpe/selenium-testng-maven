@@ -17,11 +17,6 @@ public class Listeners implements ITestListener {
     private static final Logger logger = LogManager.getLogger(ITestListener.class);
 
     @Override
-    public void onTestStart(ITestResult result) {
-        //logger.trace("[" + result.getTestClass().getName() + "] " + result.getName() + " - START");
-    }
-
-    @Override
     public void onTestSuccess(ITestResult result) {
         logger.trace("[" + result.getTestClass().getName() + "] " + result.getName() + " - SUCCESS");
     }

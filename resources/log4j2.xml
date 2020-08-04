@@ -6,12 +6,12 @@
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout
-                    pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+                    pattern="%d{HH:mm:ss.SSS} [%t] %-5level - %logger{36} - %msg%n"/>
         </Console>
         <RollingFile name="File" fileName="${basePath}/testRuns-${date:yyy-MM-dd}.log"
                      filePattern="${basePath}/testRuns-%d{yyy-MM-dd}_%i.log">
             <PatternLayout
-                    pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+                    pattern="%d{HH:mm:ss.SSS} [%t] %-5level - %logger{36} - %msg%n"/>
             <sizeBasedTriggeringPolicy size="5000"/>
         </RollingFile>
     </Appenders>
