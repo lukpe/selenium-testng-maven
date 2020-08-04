@@ -9,10 +9,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.test.ExcelDriver;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeMap;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LoginPage {
@@ -114,9 +112,11 @@ public class LoginPage {
         accountData.put("lastname", lastName);
 
         //Generate email and password
-        int rndNum = getRndInt(10000, 99999);
-        accountData.put("email", firstName.toLowerCase() + lastName.toLowerCase() + rndNum + "@selenium.test");
-        accountData.put("password", "Test" + rndNum + "!");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date(System.currentTimeMillis());
+        String dateNum = sdf.format(date);
+        accountData.put("email", firstName.toLowerCase() + lastName.toLowerCase() + dateNum + "@selenium.test");
+        accountData.put("password", "Test" + dateNum + "!");
 
         //Create an account
         emailCreate.sendKeys(accountData.get("email"));
