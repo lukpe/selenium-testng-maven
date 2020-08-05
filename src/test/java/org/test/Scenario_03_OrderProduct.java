@@ -16,7 +16,6 @@ import static org.testng.Assert.assertTrue;
 public class Scenario_03_OrderProduct extends Base {
     WebDriver driver;
     WebDriverWait wait;
-    ExcelDriver excel;
     Actions actions;
     HomePage hp;
     LoginPage lp;
@@ -24,6 +23,7 @@ public class Scenario_03_OrderProduct extends Base {
     SearchPage srchp;
     SummaryPage sump;
     AddressPage ap;
+    ShippingPage shp;
 
     @BeforeClass
     public void setUp() throws IOException {
@@ -35,7 +35,7 @@ public class Scenario_03_OrderProduct extends Base {
         srchp = new SearchPage(driver, wait);
         sump = new SummaryPage(driver, wait);
         ap = new AddressPage(driver, wait);
-        excel = new ExcelDriver();
+        shp = new ShippingPage(driver, wait);
         actions = new Actions(driver);
     }
 
@@ -79,6 +79,16 @@ public class Scenario_03_OrderProduct extends Base {
         assertTrue(ap.verifyTitle("ADDRESSES"));
         assertTrue(ap.verifyAddressData());
         ap.proceedCheckout();
+    }
+
+    @Test(priority = 5)
+    public void shippingPage() {
+        assertTrue(shp.verifyTitle("SHIPPING"));
+        assertTrue(shp.verifyTermsAndConditions());
+        shp.proceedCheckOut();
+        assertTrue(shp.verifyErrorMessage("You must agree to the terms of service before continuing."));
+        shp.acceptTermsAndConditions();
+        shp.proceedCheckOut();
     }
 
     @AfterClass
