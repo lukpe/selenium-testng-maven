@@ -40,7 +40,7 @@ public class ShippingPage {
         termsAndConditions.click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(termsAndCondFrame));
         try {
-            return ce.verifyTitle("TERMS AND CONDITIONS OF USE");
+            return ce.verifyHeading("TERMS AND CONDITIONS OF USE");
         } finally {
             driver.switchTo().defaultContent();
             frameClose.click();

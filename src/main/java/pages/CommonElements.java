@@ -20,8 +20,18 @@ public class CommonElements {
     @FindBy(className = "page-heading")
     WebElement pageHeading;
 
-    public boolean verifyTitle(String title) {
+    @FindBy(className = "page-subheading")
+    WebElement subHeading;
+
+    public boolean verifyHeading(String title) {
         wait.until(ExpectedConditions.visibilityOf(pageHeading));
         return pageHeading.getText().contentEquals(title);
     }
+
+    public boolean verifySubHeading(String title) {
+        wait.until(ExpectedConditions.visibilityOf(subHeading));
+        return subHeading.getText().contentEquals(title);
+    }
+
+
 }

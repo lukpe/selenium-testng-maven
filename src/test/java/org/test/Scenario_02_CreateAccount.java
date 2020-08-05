@@ -39,7 +39,7 @@ public class Scenario_02_CreateAccount extends Base {
         //Create an account
         hp.signIn();
         lp.createAccount();
-        assertTrue(ce.verifyTitle("MY ACCOUNT"));
+        assertTrue(ce.verifyHeading("MY ACCOUNT"));
     }
 
     @Test(priority = 2)
@@ -47,7 +47,7 @@ public class Scenario_02_CreateAccount extends Base {
         //Verify personal information
         hp.signOut();
         lp.signIn();
-        assertTrue(ce.verifyTitle("MY ACCOUNT"));
+        assertTrue(ce.verifyHeading("MY ACCOUNT"));
         assertTrue(map.verifyPersonalInformation());
     }
 

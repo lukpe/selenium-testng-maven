@@ -43,7 +43,7 @@ public class SummaryPage {
     }
 
     public boolean verifyProductName(String input) {
-        return productName.getText().equalsIgnoreCase(input);
+        return productName.getText().matches(".*(?i)" + input + "(?-i).*");
     }
 
     public boolean verifyProductQty(int quantity) {

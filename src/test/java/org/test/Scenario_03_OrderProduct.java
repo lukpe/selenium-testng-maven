@@ -25,6 +25,8 @@ public class Scenario_03_OrderProduct extends Base {
     SummaryPage sump;
     AddressPage ap;
     ShippingPage shp;
+    PaymentPage pp;
+    OrderConfirmationPage ocp;
 
     @BeforeClass
     public void setUp() throws IOException {
@@ -38,6 +40,8 @@ public class Scenario_03_OrderProduct extends Base {
         sump = new SummaryPage(driver, wait);
         ap = new AddressPage(driver);
         shp = new ShippingPage(driver, wait);
+        pp = new PaymentPage(driver, wait);
+        ocp = new OrderConfirmationPage(driver, wait);
         actions = new Actions(driver);
     }
 
@@ -56,9 +60,8 @@ public class Scenario_03_OrderProduct extends Base {
 
     @Parameters({"product"})
     @Test(priority = 2)
-    public void summaryPage(String product) {
+    public void summary(String product) {
         product = product.toLowerCase();
-        //Summary
         assertTrue(sump.verifyProductQtyTitle("1 Product"));
         assertTrue(sump.verifyProductName(product));
         assertTrue(sump.verifyProductQty(1));
@@ -72,25 +75,36 @@ public class Scenario_03_OrderProduct extends Base {
     }
 
     @Test(priority = 3)
-    public void signInPage() {
+    public void signIn() {
         lp.signIn();
     }
 
     @Test(priority = 4)
-    public void addressPage() {
-        assertTrue(ce.verifyTitle("ADDRESSES"));
+    public void addresses() {
+        assertTrue(ce.verifyHeading("ADDRESSES"));
         assertTrue(ap.verifyAddressData());
         ap.proceedCheckout();
     }
 
     @Test(priority = 5)
-    public void shippingPage() {
-        assertTrue(ce.verifyTitle("SHIPPING"));
+    public void shipping() {
+        assertTrue(ce.verifyHeading("SHIPPING"));
         assertTrue(shp.verifyTermsAndConditions());
         shp.proceedCheckOut();
         assertTrue(shp.verifyErrorMessage("You must agree to the terms of service before continuing."));
         shp.acceptTermsAndConditions();
         shp.proceedCheckOut();
+    }
+
+    @Parameters({"product", "payment"})
+    @Test(priority = 6)
+    public void payment(String product, String payment) {
+        product = product.toLowerCase();
+        assertTrue(ce.verifyHeading("PLEASE CHOOSE YOUR PAYMENT METHOD"));
+        assertTrue(sump.verifyProductName(product));
+        assertTrue(pp.choosePaymentMethod(payment));
+        assertTrue(ce.verifyHeading("ORDER CONFIRMATION"));
+        assertTrue(ocp.verifySuccessMessage(payment, "Your order on My Store is complete."));
     }
 
     @AfterClass
