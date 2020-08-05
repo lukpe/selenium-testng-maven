@@ -41,8 +41,7 @@ Selenium framework for testing sample e-commerce page ([automationpractice.com](
 2. Verify if personal information is correctly displayed on the account page.
 ### [Scenario_03_OrderProduct](src/test/java/org/test/Scenario_03_OrderProduct.java)
 [testng.xml]: https://github.com/lukpe/ecommerce-framework/blob/d3a8d1dca239cd7508dabe621ac32eded8de26a3/testng.xml#L20
-1. Add a product to cart (product name parametrized in [testng.xml]).
-2. Proceed to checkout.
-3. Verify cart page.
-4. Test adding/removing product quantity.
-5. Log in (take credentials from LoginData.xls).
+1. Add a product to cart (product name parametrized in [testng.xml]) and proceed to checkout
+2. Verify the summary page, test adding/removing product quantity.
+3. Log in
+4. Verify address data

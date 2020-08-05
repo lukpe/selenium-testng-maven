@@ -49,9 +49,9 @@ public class MyAccountPage {
 
     public boolean verifyPersonalInformation() {
         try {
-            firstName = excel.getValueByColumnName("firstname");
-            lastName = excel.getValueByColumnName("lastname");
-            email = excel.getValueByColumnName("email");
+            firstName = excel.getColumnValue("firstname");
+            lastName = excel.getColumnValue("lastname");
+            email = excel.getColumnValue("email");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

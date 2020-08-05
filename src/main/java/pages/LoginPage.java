@@ -180,14 +180,14 @@ public class LoginPage {
 
         excel.addNewRow();
         for (Map.Entry<String, String> entry : accountData.entrySet()) {
-            excel.setValueByColumnName(entry.getKey(), entry.getValue());
+            excel.setColumnValue(entry.getKey(), entry.getValue());
         }
     }
 
     public void signIn() {
         try {
-            emailField.sendKeys(excel.getValueByColumnName("email"));
-            passwordField.sendKeys(excel.getValueByColumnName("password"));
+            emailField.sendKeys(excel.getColumnValue("email"));
+            passwordField.sendKeys(excel.getColumnValue("password"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

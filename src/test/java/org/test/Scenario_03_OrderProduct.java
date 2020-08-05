@@ -21,8 +21,9 @@ public class Scenario_03_OrderProduct extends Base {
     HomePage hp;
     LoginPage lp;
     MyAccountPage map;
-    SearchPage sp;
-    OrderPage op;
+    SearchPage srchp;
+    SummaryPage sump;
+    AddressPage ap;
 
     @BeforeClass
     public void setUp() throws IOException {
@@ -31,8 +32,9 @@ public class Scenario_03_OrderProduct extends Base {
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver, wait);
-        sp = new SearchPage(driver, wait);
-        op = new OrderPage(driver, wait);
+        srchp = new SearchPage(driver, wait);
+        sump = new SummaryPage(driver, wait);
+        ap = new AddressPage(driver, wait);
         excel = new ExcelDriver();
         actions = new Actions(driver);
     }
@@ -42,32 +44,41 @@ public class Scenario_03_OrderProduct extends Base {
     public void addToCart(String product) {
         product = product.toLowerCase();
         hp.searchProduct(product);
-        assertTrue(sp.checkSearchResult(product));
-        sp.addProductToCart();
-        assertTrue(sp.verifyMessageHeader("Product successfully added to your shopping cart"));
-        sp.getContinueShopping().click();
+        assertTrue(srchp.checkSearchResult(product));
+        srchp.addProductToCart();
+        assertTrue(srchp.verifyMessageHeader("Product successfully added to your shopping cart"));
+        srchp.getContinueShopping().click();
         assertTrue(hp.checkCartQuantity("1"));
+        hp.proceedCheckOut();
     }
 
     @Parameters({"product"})
     @Test(priority = 2)
-    public void checkOut(String product) {
+    public void summaryPage(String product) {
         product = product.toLowerCase();
-        hp.proceedCheckOut();
-        assertTrue(op.verifyProductQtyTitle("1 Product"));
-        assertTrue(op.verifyProductName(product));
-        assertTrue(op.verifyProductQty(1));
-        op.addProduct();
-        assertTrue(op.verifyProductQty(2));
-        assertTrue(op.verifyProductQtyTitle("2 Products"));
-        op.removeProduct();
-        assertTrue(op.verifyProductQty(1));
-        assertTrue(op.verifyProductQtyTitle("1 Product"));
-        op.proceedCheckOut();
-        //Sign In
+        //Summary
+        assertTrue(sump.verifyProductQtyTitle("1 Product"));
+        assertTrue(sump.verifyProductName(product));
+        assertTrue(sump.verifyProductQty(1));
+        sump.addProduct();
+        assertTrue(sump.verifyProductQty(2));
+        assertTrue(sump.verifyProductQtyTitle("2 Products"));
+        sump.removeProduct();
+        assertTrue(sump.verifyProductQty(1));
+        assertTrue(sump.verifyProductQtyTitle("1 Product"));
+        sump.proceedCheckOut();
+    }
+
+    @Test(priority = 3)
+    public void signInPage() {
         lp.signIn();
-        //Address
-        assertTrue(op.verifyTitle("ADDRESSES"));
+    }
+
+    @Test(priority = 4)
+    public void addressPage() {
+        assertTrue(ap.verifyTitle("ADDRESSES"));
+        assertTrue(ap.verifyAddressData());
+        ap.proceedCheckout();
     }
 
     @AfterClass

@@ -31,7 +31,7 @@ public class ExcelDriver {
         }
     }
 
-    public void setValueByColumnName(String columnName, String value) {
+    public void setColumnValue(String columnName, String value) {
         try {
             setUp();
             for (int i = 0; i < 2; i++) {
@@ -58,7 +58,7 @@ public class ExcelDriver {
         }
     }
 
-    public String getValueByColumnName(String columnName) throws Exception {
+    public String getColumnValue(String columnName) throws Exception {
         try {
             setUp();
             try {
