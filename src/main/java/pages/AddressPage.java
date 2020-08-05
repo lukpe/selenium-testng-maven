@@ -28,12 +28,12 @@ public class AddressPage {
     @FindBy(xpath = "//button//span[contains(text(),'Proceed to checkout')]")
     WebElement checkOut;
 
-    public Boolean verifyTitle(String title) {
+    public boolean verifyTitle(String title) {
         wait.until(ExpectedConditions.visibilityOf(pageHeading));
         return pageHeading.getText().contentEquals(title);
     }
 
-    public Boolean verifyAddressData() {
+    public boolean verifyAddressData() {
         Map<String, String> addressMap = fillAddressMap();
         String xpath = "//ul[@id='address_delivery']//li[@class='";
         boolean found = true;
