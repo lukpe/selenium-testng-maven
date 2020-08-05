@@ -43,5 +43,7 @@ Selenium framework for testing sample e-commerce page ([automationpractice.com](
 [testng.xml]: https://github.com/lukpe/ecommerce-framework/blob/d3a8d1dca239cd7508dabe621ac32eded8de26a3/testng.xml#L20
 1. Add a product to cart (product name parametrized in [testng.xml]) and proceed to checkout
 2. Verify the summary page, test adding/removing product quantity.
-3. Log in
-4. Verify address data
+3. Log in.
+4. Verify address data.
+5. Verify terms and conditions acceptance requirement.
+6. Choose one of payment methods (parametrized in [testng.xml]) and verify payment confirmation.
