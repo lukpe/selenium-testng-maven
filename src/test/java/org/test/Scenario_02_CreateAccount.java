@@ -5,6 +5,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pages.CommonElements;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.MyAccountPage;
@@ -16,6 +17,7 @@ import static org.testng.Assert.assertTrue;
 public class Scenario_02_CreateAccount extends Base {
     WebDriver driver;
     WebDriverWait wait;
+    CommonElements ce;
     HomePage hp;
     LoginPage lp;
     MyAccountPage map;
@@ -25,9 +27,10 @@ public class Scenario_02_CreateAccount extends Base {
     public void setUp() throws IOException {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
+        ce = new CommonElements(driver, wait);
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
-        map = new MyAccountPage(driver, wait);
+        map = new MyAccountPage(driver);
         excel = new ExcelDriver();
     }
 
@@ -36,7 +39,7 @@ public class Scenario_02_CreateAccount extends Base {
         //Create an account
         hp.signIn();
         lp.createAccount();
-        assertTrue(map.verifyPageHeader());
+        assertTrue(ce.verifyTitle("MY ACCOUNT"));
     }
 
     @Test(priority = 2)
@@ -44,7 +47,7 @@ public class Scenario_02_CreateAccount extends Base {
         //Verify personal information
         hp.signOut();
         lp.signIn();
-        assertTrue(map.verifyPageHeader());
+        assertTrue(ce.verifyTitle("MY ACCOUNT"));
         assertTrue(map.verifyPersonalInformation());
     }
 

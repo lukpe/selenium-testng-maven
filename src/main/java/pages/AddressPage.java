@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.test.ExcelDriver;
 
 import java.util.HashMap;
@@ -14,24 +12,14 @@ import java.util.Map;
 
 public class AddressPage {
     public WebDriver driver;
-    private final WebDriverWait wait;
 
-    public AddressPage(WebDriver driver, WebDriverWait wait) {
+    public AddressPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(className = "page-heading")
-    WebElement pageHeading;
-
     @FindBy(xpath = "//button//span[contains(text(),'Proceed to checkout')]")
     WebElement checkOut;
-
-    public boolean verifyTitle(String title) {
-        wait.until(ExpectedConditions.visibilityOf(pageHeading));
-        return pageHeading.getText().contentEquals(title);
-    }
 
     public boolean verifyAddressData() {
         Map<String, String> addressMap = fillAddressMap();

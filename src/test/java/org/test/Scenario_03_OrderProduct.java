@@ -17,6 +17,7 @@ public class Scenario_03_OrderProduct extends Base {
     WebDriver driver;
     WebDriverWait wait;
     Actions actions;
+    CommonElements ce;
     HomePage hp;
     LoginPage lp;
     MyAccountPage map;
@@ -29,12 +30,13 @@ public class Scenario_03_OrderProduct extends Base {
     public void setUp() throws IOException {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
+        ce = new CommonElements(driver, wait);
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
-        map = new MyAccountPage(driver, wait);
+        map = new MyAccountPage(driver);
         srchp = new SearchPage(driver, wait);
         sump = new SummaryPage(driver, wait);
-        ap = new AddressPage(driver, wait);
+        ap = new AddressPage(driver);
         shp = new ShippingPage(driver, wait);
         actions = new Actions(driver);
     }
@@ -76,14 +78,14 @@ public class Scenario_03_OrderProduct extends Base {
 
     @Test(priority = 4)
     public void addressPage() {
-        assertTrue(ap.verifyTitle("ADDRESSES"));
+        assertTrue(ce.verifyTitle("ADDRESSES"));
         assertTrue(ap.verifyAddressData());
         ap.proceedCheckout();
     }
 
     @Test(priority = 5)
     public void shippingPage() {
-        assertTrue(shp.verifyTitle("SHIPPING"));
+        assertTrue(ce.verifyTitle("SHIPPING"));
         assertTrue(shp.verifyTermsAndConditions());
         shp.proceedCheckOut();
         assertTrue(shp.verifyErrorMessage("You must agree to the terms of service before continuing."));

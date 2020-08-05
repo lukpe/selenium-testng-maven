@@ -17,9 +17,6 @@ public class ShippingPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(className = "page-heading")
-    WebElement pageHeading;
-
     @FindBy(linkText = "(Read the Terms of Service)")
     WebElement termsAndConditions;
 
@@ -38,16 +35,12 @@ public class ShippingPage {
     @FindBy(xpath = "//button//span[contains(text(),'Proceed to checkout')]")
     WebElement checkOut;
 
-    public boolean verifyTitle(String title) {
-        wait.until(ExpectedConditions.visibilityOf(pageHeading));
-        return pageHeading.getText().contentEquals(title);
-    }
-
     public boolean verifyTermsAndConditions() {
+        CommonElements ce = new CommonElements(driver, wait);
         termsAndConditions.click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(termsAndCondFrame));
         try {
-            return verifyTitle("TERMS AND CONDITIONS OF USE");
+            return ce.verifyTitle("TERMS AND CONDITIONS OF USE");
         } finally {
             driver.switchTo().defaultContent();
             frameClose.click();
