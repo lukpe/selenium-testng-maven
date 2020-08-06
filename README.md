@@ -44,8 +44,8 @@ Selenium framework for testing sample e-commerce page ([automationpractice.com](
 [TestData.xls]: ./resources/TestData.xls
 ###### Product `name`, `quantity` and `payment` method parametrized in [testng.xml]
 1. Search for a product, save its name, price and desired quantity to [TestData.xls] and proceed to checkout.
-2. Verify the summary page before and after adding product quantity (`if quantity > 1`).
+2. Verify the summary page before and after adding product quantity (`if quantity > 1`) also verify total prices with and without tax.
 3. Log in.
 4. Verify address data.
-5. Verify terms and conditions acceptance requirement.
-6. Choose payment method and verify payment confirmation.
+5. Verify shipping price and terms and conditions acceptance requirement.
+6. Choose payment method and verify payment confirmation, total price and extract order reference number.

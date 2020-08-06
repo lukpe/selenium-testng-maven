@@ -27,6 +27,8 @@ public class Scenario_03_OrderProduct extends Base {
     ShippingPage shp;
     PaymentPage pp;
     OrderConfirmationPage ocp;
+    private String totalPrice;
+    private String totalShipping;
 
     @BeforeClass
     public void setUp() throws IOException {
@@ -71,6 +73,9 @@ public class Scenario_03_OrderProduct extends Base {
             assertTrue(sump.verifyProductQtyTitle(quantity));
             assertTrue(sump.verifyProductQty(quantity));
         }
+        assertTrue(sump.verifyTotalPrice());
+        totalPrice = sump.getTotalPrice();
+        totalShipping = sump.getTotalShipping();
         sump.proceedCheckOut();
     }
 
@@ -89,6 +94,7 @@ public class Scenario_03_OrderProduct extends Base {
     @Test(priority = 5)
     public void shipping() {
         assertTrue(ce.verifyHeading("SHIPPING"));
+        assertTrue(shp.verifyTotalShipping(totalShipping));
         assertTrue(shp.verifyTermsAndConditions());
         shp.proceedCheckOut();
         assertTrue(shp.verifyErrorMessage("You must agree to the terms of service before continuing."));
@@ -103,8 +109,12 @@ public class Scenario_03_OrderProduct extends Base {
         assertTrue(ce.verifyHeading("PLEASE CHOOSE YOUR PAYMENT METHOD"));
         assertTrue(sump.verifyProductName(product));
         assertTrue(pp.choosePaymentMethod(payment));
+        assertTrue(pp.verifyTotalPrice(totalPrice));
+        pp.confirmPayment();
         assertTrue(ce.verifyHeading("ORDER CONFIRMATION"));
         assertTrue(ocp.verifySuccessMessage(payment, "Your order on My Store is complete."));
+        assertTrue(ocp.verifyTotalPrice(totalPrice));
+        ocp.saveOrderReference(payment);
     }
 
     @AfterClass

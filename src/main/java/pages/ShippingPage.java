@@ -17,6 +17,9 @@ public class ShippingPage {
         PageFactory.initElements(driver, this);
     }
 
+    @FindBy(xpath = "//div[@class='delivery_option_price']")
+    WebElement totalShipping;
+
     @FindBy(linkText = "(Read the Terms of Service)")
     WebElement termsAndConditions;
 
@@ -34,6 +37,10 @@ public class ShippingPage {
 
     @FindBy(xpath = "//button//span[contains(text(),'Proceed to checkout')]")
     WebElement checkOut;
+
+    public boolean verifyTotalShipping(String correctTotal) {
+        return totalShipping.getText().contentEquals(correctTotal);
+    }
 
     public boolean verifyTermsAndConditions() {
         CommonElements ce = new CommonElements(driver, wait);
@@ -63,6 +70,4 @@ public class ShippingPage {
     public void acceptTermsAndConditions() {
         termsAndCondChckBox.click();
     }
-
-
 }

@@ -9,6 +9,20 @@
             <class name="org.test.Scenario_01_VerifyHomePage"/>
         </classes>
     </test>
+    <test verbose="2" name="Scenario_02" parallel="false" enabled="false">
+        <classes>
+            <class name="org.test.Scenario_02_CreateAccount"/>
+        </classes>
+    </test>
+    <test verbose="2" name="Scenario_03" parallel="false" enabled="false">
+        <classes>
+            <class name="org.test.Scenario_03_OrderProduct">
+                <parameter name="product" value="t-shirt"/>
+                <parameter name="quantity" value="3"/>
+                <parameter name="payment" value="bankwire"/>
+            </class>
+        </classes>
+    </test>
     <test verbose="2" name="Scenario_02-03_Variant_01" parallel="false" enabled="true">
         <classes>
             <class name="org.test.Scenario_02_CreateAccount"/>

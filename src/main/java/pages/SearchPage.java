@@ -67,7 +67,7 @@ public class SearchPage {
     private String getUnitPrice() {
         List<WebElement> spanList = driver.findElements(productPrice);
         ListIterator<WebElement> spanIterator = spanList.listIterator();
-        String price = "";
+        String price = null;
         while (spanIterator.hasNext()) {
             price = spanIterator.next().getText();
             if (price.length() > 0) {
