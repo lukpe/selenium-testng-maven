@@ -1,5 +1,7 @@
 package org.test;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -8,15 +10,17 @@ import pages.HomePage;
 import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class Scenario_01_VerifyHomePage extends Base {
+    WebDriver driver;
+    WebDriverWait wait;
     HomePage hp;
 
     @BeforeClass
     public void setUp() throws IOException {
         driver = initializeDriver();
-        hp = new HomePage(driver);
+        wait = new WebDriverWait(driver, timeOut);
+        hp = new HomePage(driver, wait);
     }
 
     @Test
@@ -26,22 +30,22 @@ public class Scenario_01_VerifyHomePage extends Base {
 
     @Test
     public void validateLogo() {
-        assertTrue(hp.checkLogo());
+        hp.checkLogo();
     }
 
     @Test
     public void validateSearchBar() {
-        assertTrue(hp.checkSearchBar());
+        hp.checkSearchBar();
     }
 
     @Test
     public void validateShoppingCart() {
-        assertTrue(hp.checkShoppingCart());
+        hp.checkShoppingCart();
     }
 
     @Test
     public void validateSignInLink() {
-        assertTrue(hp.checkSignIn());
+        hp.checkSignIn();
     }
 
     @AfterClass

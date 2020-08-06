@@ -35,7 +35,7 @@ public class Scenario_03_OrderProduct extends Base {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
         ce = new CommonElements(driver, wait);
-        hp = new HomePage(driver);
+        hp = new HomePage(driver, wait);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver);
         srchp = new SearchPage(driver, wait);
