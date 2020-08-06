@@ -28,22 +28,24 @@ Selenium framework for testing sample e-commerce page ([automationpractice.com](
 * [TestNG](https://testng.org/doc/)
 * [Maven Surefire Reports](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
-* [Log4j](https://logging.apache.org/log4j/2.x/) -> `./logs`
-* screenshots on failure -> `./screenshots`
+* [Log4j](https://logging.apache.org/log4j/2.x/) -> `./logs` folder
+* screenshots on failure -> `./screenshots` folder
 * configuration file -> `./resources/test.properties`
-* generated data (login credentials, address) saved to excel sheet -> `./resources/LoginData.xls`
+* generated data (login credentials, address) saved to an Excel sheet -> `./resources/TestData.xls`
 
 ## scenarios
 ### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
 * Check for presence/validate: _page title, logo image, search bar, shopping cart ,"Sign in" link_
 ### [Scenario_02_CreateAccount](/src/test/java/org/test/Scenario_02_CreateAccount.java)
-1. Create account and save generated data to LoginData.xls
+1. Create account and save generated data to TestData.xls
 2. Verify if personal information is correctly displayed on the account page.
 ### [Scenario_03_OrderProduct](src/test/java/org/test/Scenario_03_OrderProduct.java)
-[testng.xml]: https://github.com/lukpe/ecommerce-framework/blob/d3a8d1dca239cd7508dabe621ac32eded8de26a3/testng.xml#L20
-1. Add a product to cart (product name parametrized in [testng.xml]) and proceed to checkout
-2. Verify the summary page, test adding/removing product quantity.
+[testng.xml]: ./testng.xml
+[TestData.xls]: ./resources/TestData.xls
+###### Product `name`, `quantity` and `payment` method parametrized in [testng.xml]
+1. Search for a product, save its name, price and desired quantity to [TestData.xls] and proceed to checkout.
+2. Verify the summary page before and after adding product quantity (`if quantity > 1`).
 3. Log in.
 4. Verify address data.
 5. Verify terms and conditions acceptance requirement.
-6. Choose one of payment methods (parametrized in [testng.xml]) and verify payment confirmation.
+6. Choose payment method and verify payment confirmation.

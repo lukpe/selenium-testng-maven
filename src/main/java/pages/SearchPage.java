@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -7,6 +8,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.test.ExcelDriver;
+
+import java.util.List;
+import java.util.ListIterator;
 
 public class SearchPage {
     public WebDriver driver;
@@ -22,6 +27,8 @@ public class SearchPage {
 
     @FindBy(xpath = "//ul[@class='product_list grid row']//a[@class='product-name']")
     WebElement searchResult;
+
+    private final By productPrice = new By.ByXPath("//ul[@class='product_list grid row']//span");
 
     @FindBy(xpath = "//span[contains(text(),'Add to cart')]")
     WebElement addToCart;
@@ -48,5 +55,26 @@ public class SearchPage {
 
     public WebElement getContinueShopping() {
         return continueShopping;
+    }
+
+    public void saveProductDetails(String product, int quantity) {
+        ExcelDriver excel = new ExcelDriver();
+        excel.setColumnValue("product_name", product);
+        excel.setColumnValue("product_price", getUnitPrice());
+        excel.setColumnValue("product_quantity", String.valueOf(quantity));
+    }
+
+    private String getUnitPrice() {
+        List<WebElement> spanList = driver.findElements(productPrice);
+        ListIterator<WebElement> spanIterator = spanList.listIterator();
+        String price = "";
+        while (spanIterator.hasNext()) {
+            price = spanIterator.next().getText();
+            if (price.length() > 0) {
+                price = price.replace("$", "");
+                break;
+            }
+        }
+        return price;
     }
 }

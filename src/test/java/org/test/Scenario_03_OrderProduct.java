@@ -45,12 +45,13 @@ public class Scenario_03_OrderProduct extends Base {
         actions = new Actions(driver);
     }
 
-    @Parameters({"product"})
+    @Parameters({"product", "quantity"})
     @Test(priority = 1)
-    public void addToCart(String product) {
+    public void addToCart(String product, int quantity) {
         product = product.toLowerCase();
         hp.searchProduct(product);
         assertTrue(srchp.checkSearchResult(product));
+        srchp.saveProductDetails(product, quantity);
         srchp.addProductToCart();
         assertTrue(srchp.verifyMessageHeader("Product successfully added to your shopping cart"));
         srchp.getContinueShopping().click();

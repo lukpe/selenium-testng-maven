@@ -31,9 +31,6 @@ public class SummaryPage {
     @FindBy(xpath = "//i[@class='icon-plus']")
     WebElement iconPlus;
 
-    @FindBy(xpath = "//i[@class='icon-minus']")
-    WebElement iconMinus;
-
     @FindBy(xpath = "//p//a[@title='Proceed to checkout']")
     WebElement checkOut;
 

@@ -80,7 +80,7 @@ public class ExcelDriver {
 
     private void setUp() {
         try {
-            file = new File(System.getProperty("user.dir") + "\\resources\\LoginData.xls");
+            file = new File(System.getProperty("user.dir") + "\\resources\\TestData.xls");
             fis = new FileInputStream(file);
             loginData = new HSSFWorkbook(fis);
             sheet = loginData.getSheet("Login");
