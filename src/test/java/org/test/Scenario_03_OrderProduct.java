@@ -58,19 +58,18 @@ public class Scenario_03_OrderProduct extends Base {
         hp.proceedCheckOut();
     }
 
-    @Parameters({"product"})
+    @Parameters({"product", "quantity"})
     @Test(priority = 2)
-    public void summary(String product) {
+    public void summary(String product, int quantity) {
         product = product.toLowerCase();
-        assertTrue(sump.verifyProductQtyTitle("1 Product"));
+        assertTrue(sump.verifyProductQtyTitle(1));
+        assertTrue(sump.verifyProductQty(1));
         assertTrue(sump.verifyProductName(product));
-        assertTrue(sump.verifyProductQty(1));
-        sump.addProduct();
-        assertTrue(sump.verifyProductQty(2));
-        assertTrue(sump.verifyProductQtyTitle("2 Products"));
-        sump.removeProduct();
-        assertTrue(sump.verifyProductQty(1));
-        assertTrue(sump.verifyProductQtyTitle("1 Product"));
+        if (quantity > 1) {
+            sump.addProduct(quantity);
+            assertTrue(sump.verifyProductQtyTitle(quantity));
+            assertTrue(sump.verifyProductQty(quantity));
+        }
         sump.proceedCheckOut();
     }
 

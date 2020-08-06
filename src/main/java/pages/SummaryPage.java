@@ -37,9 +37,14 @@ public class SummaryPage {
     @FindBy(xpath = "//p//a[@title='Proceed to checkout']")
     WebElement checkOut;
 
-    public boolean verifyProductQtyTitle(String productNumber) {
+    public boolean verifyProductQtyTitle(int quantity) {
+        String ending = "";
+        if (quantity > 1) {
+            ending = "s";
+        }
         wait.until(ExpectedConditions.visibilityOf(cartTitle));
-        return cartTitle.getText().contentEquals("SHOPPING-CART SUMMARY\nYour shopping cart contains: " + productNumber);
+        return cartTitle.getText().contentEquals("SHOPPING-CART SUMMARY\nYour shopping cart contains: "
+                + quantity + " Product" + ending);
     }
 
     public boolean verifyProductName(String input) {
@@ -50,12 +55,10 @@ public class SummaryPage {
         return productQuantity.getAttribute("value").contentEquals(String.valueOf(quantity));
     }
 
-    public void addProduct() {
-        new Actions(driver).moveToElement(iconPlus).click().pause(2000).perform();
-    }
-
-    public void removeProduct() {
-        new Actions(driver).moveToElement(iconMinus).click().pause(2000).perform();
+    public void addProduct(int quantity) {
+        for (int i = 1; i < quantity; i++) {
+            new Actions(driver).moveToElement(iconPlus).click().pause(2000).perform();
+        }
     }
 
     public void proceedCheckOut() {
