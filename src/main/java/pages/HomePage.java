@@ -38,19 +38,23 @@ public class HomePage {
     @FindBy(xpath = "//a[@class='logout']")
     WebElement logout;
 
-    public void checkLogo() {
+    public void waitPageTitle(String title) {
+        assert driver.getTitle().contentEquals(title);
+    }
+
+    public void waitLogo() {
         wait.until(ExpectedConditions.visibilityOf(logo));
     }
 
-    public void checkSearchBar() {
+    public void waitSearchBar() {
         wait.until(ExpectedConditions.visibilityOf(searchBar));
     }
 
-    public void checkShoppingCart() {
+    public void waitShoppingCart() {
         wait.until(ExpectedConditions.visibilityOf(shoppingCart));
     }
 
-    public void checkSignIn() {
+    public void waitSignIn() {
         wait.until(ExpectedConditions.visibilityOf(login));
     }
 
