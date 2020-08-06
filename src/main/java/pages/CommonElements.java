@@ -23,14 +23,12 @@ public class CommonElements {
     @FindBy(className = "page-subheading")
     WebElement subHeading;
 
-    public boolean verifyHeading(String title) {
-        wait.until(ExpectedConditions.visibilityOf(pageHeading));
-        return pageHeading.getText().contentEquals(title);
+    public void waitForHeading(String title) {
+        wait.until(ExpectedConditions.textToBePresentInElement(pageHeading, title));
     }
 
-    public boolean verifySubHeading(String title) {
-        wait.until(ExpectedConditions.visibilityOf(subHeading));
-        return subHeading.getText().contentEquals(title);
+    public void waitForSubHeading(String title) {
+        wait.until(ExpectedConditions.textToBePresentInElement(subHeading, title));
     }
 
 

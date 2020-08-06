@@ -86,16 +86,16 @@ public class Scenario_03_OrderProduct extends Base {
 
     @Test(priority = 4)
     public void addresses() {
-        assertTrue(ce.verifyHeading("ADDRESSES"));
+        ce.waitForHeading("ADDRESSES");
         assertTrue(ap.verifyAddressData());
         ap.proceedCheckout();
     }
 
     @Test(priority = 5)
     public void shipping() {
-        assertTrue(ce.verifyHeading("SHIPPING"));
+        ce.waitForHeading("SHIPPING");
         assertTrue(shp.verifyTotalShipping(totalShipping));
-        assertTrue(shp.verifyTermsAndConditions());
+        shp.verifyTermsAndConditions();
         shp.proceedCheckOut();
         assertTrue(shp.verifyErrorMessage("You must agree to the terms of service before continuing."));
         shp.acceptTermsAndConditions();
@@ -106,12 +106,12 @@ public class Scenario_03_OrderProduct extends Base {
     @Test(priority = 6)
     public void payment(String product, String payment) {
         product = product.toLowerCase();
-        assertTrue(ce.verifyHeading("PLEASE CHOOSE YOUR PAYMENT METHOD"));
+        ce.waitForHeading("PLEASE CHOOSE YOUR PAYMENT METHOD");
         assertTrue(sump.verifyProductName(product));
-        assertTrue(pp.choosePaymentMethod(payment));
+        pp.choosePaymentMethod(payment);
         assertTrue(pp.verifyTotalPrice(totalPrice));
         pp.confirmPayment();
-        assertTrue(ce.verifyHeading("ORDER CONFIRMATION"));
+        ce.waitForHeading("ORDER CONFIRMATION");
         assertTrue(ocp.verifySuccessMessage(payment, "Your order on My Store is complete."));
         assertTrue(ocp.verifyTotalPrice(totalPrice));
         ocp.saveOrderReference(payment);

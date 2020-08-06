@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -42,20 +43,17 @@ public class ShippingPage {
         return totalShipping.getText().contentEquals(correctTotal);
     }
 
-    public boolean verifyTermsAndConditions() {
+    public void verifyTermsAndConditions() {
         CommonElements ce = new CommonElements(driver, wait);
         termsAndConditions.click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(termsAndCondFrame));
-        try {
-            return ce.verifyHeading("TERMS AND CONDITIONS OF USE");
-        } finally {
-            driver.switchTo().defaultContent();
-            frameClose.click();
-        }
+        ce.waitForHeading("TERMS AND CONDITIONS OF USE");
+        driver.switchTo().defaultContent();
+        frameClose.click();
     }
 
     public void proceedCheckOut() {
-        checkOut.click();
+        new Actions(driver).pause(500).moveToElement(checkOut).click().perform();
     }
 
     public boolean verifyErrorMessage(String message) {
@@ -68,6 +66,6 @@ public class ShippingPage {
     }
 
     public void acceptTermsAndConditions() {
-        termsAndCondChckBox.click();
+        new Actions(driver).pause(500).moveToElement(termsAndCondChckBox).click().perform();
     }
 }

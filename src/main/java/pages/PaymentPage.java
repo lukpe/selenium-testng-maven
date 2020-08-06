@@ -31,27 +31,26 @@ public class PaymentPage {
     @FindBy(xpath = "//span[contains(text(),'I confirm my order')]")
     WebElement orderConfirmation;
 
-    public boolean choosePaymentMethod(String payment) {
+    public void choosePaymentMethod(String payment) {
         if (payment.equalsIgnoreCase("bankwire")) {
-            return chooseBankWire();
+            chooseBankWire();
         } else if (payment.equalsIgnoreCase("cheque")) {
-            return chooseCheque();
+            chooseCheque();
         }
-        return false;
     }
 
     public void confirmPayment() {
         orderConfirmation.click();
     }
 
-    private boolean chooseBankWire() {
+    private void chooseBankWire() {
         bankWire.click();
-        return ce.verifySubHeading("BANK-WIRE PAYMENT.");
+        ce.waitForSubHeading("BANK-WIRE PAYMENT.");
     }
 
-    private boolean chooseCheque() {
+    private void chooseCheque() {
         cheque.click();
-        return ce.verifySubHeading("CHECK PAYMENT");
+        ce.waitForSubHeading("CHECK PAYMENT");
     }
 
     public boolean verifyTotalPrice(String correctTotal) {
