@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
@@ -38,24 +37,24 @@ public class HomePage {
     @FindBy(xpath = "//a[@class='logout']")
     WebElement logout;
 
-    public void waitPageTitle(String title) {
-        assert driver.getTitle().contentEquals(title);
+    public boolean verifyPageTitle(String title) {
+        return driver.getTitle().contentEquals(title);
     }
 
-    public void waitLogo() {
-        wait.until(ExpectedConditions.visibilityOf(logo));
+    public boolean verifyLogo() {
+        return logo.isDisplayed();
     }
 
-    public void waitSearchBar() {
-        wait.until(ExpectedConditions.visibilityOf(searchBar));
+    public boolean verifySearchBar() {
+        return searchBar.isDisplayed();
     }
 
-    public void waitShoppingCart() {
-        wait.until(ExpectedConditions.visibilityOf(shoppingCart));
+    public boolean verifyShoppingCart() {
+        return shoppingCart.isDisplayed();
     }
 
-    public void waitSignIn() {
-        wait.until(ExpectedConditions.visibilityOf(login));
+    public boolean verifySignIn() {
+        return login.isDisplayed();
     }
 
     public void signIn() {

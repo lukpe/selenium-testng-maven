@@ -9,6 +9,8 @@ import pages.HomePage;
 
 import java.io.IOException;
 
+import static org.testng.Assert.assertTrue;
+
 public class Scenario_01_VerifyHomePage extends Base {
     WebDriver driver;
     WebDriverWait wait;
@@ -23,27 +25,27 @@ public class Scenario_01_VerifyHomePage extends Base {
 
     @Test
     public void validatePageTitle() {
-        hp.waitPageTitle("My Store");
+        assertTrue(hp.verifyPageTitle("My Store"));
     }
 
     @Test
     public void validateLogo() {
-        hp.waitLogo();
+        assertTrue(hp.verifyLogo());
     }
 
     @Test
     public void validateSearchBar() {
-        hp.waitSearchBar();
+        assertTrue(hp.verifySearchBar());
     }
 
     @Test
     public void validateShoppingCart() {
-        hp.waitShoppingCart();
+        assertTrue(hp.verifyShoppingCart());
     }
 
     @Test
     public void validateSignInLink() {
-        hp.waitSignIn();
+        assertTrue(hp.verifySignIn());
     }
 
     @AfterClass
