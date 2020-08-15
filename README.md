@@ -1,5 +1,5 @@
-# ecommerce-framework
-Selenium framework for testing sample e-commerce page ([automationpractice.com](http://automationpractice.com))
+# selenium-testng-maven
+Selenium framework for testing e-commerce page ([automationpractice.com](http://automationpractice.com))
 
 ## requirements
 * Java 11
