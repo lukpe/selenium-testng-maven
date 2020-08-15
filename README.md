@@ -7,7 +7,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * Chrome and/or Firefox
 
 ## how to run
-* `git clone https://github.com/lukpe/ecommerce-framework.git`
+* `git clone https://github.com/lukpe/selenium-testng-maven.git`
 * `mvn test`
 
 | optional parameters |
