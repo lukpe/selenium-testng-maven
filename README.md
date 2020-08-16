@@ -18,7 +18,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 
 [test.properties]: src/main/resources/test.properties
 [docker]: https://www.docker.com/
-[docker-compose.yml]: resources/docker-compose.yml
+[docker-compose.yml]: src/main/resources/docker-compose.yml
 * If no parameter -> test locally under **chrome** (_browser_ parameter in [test.properties])
 * If `-remote` -> _gridURL_ parameter from [test.properties]
 * Added [docker-compose.yml] to run `-Dbrowser=chrome-remote` on _localhost_ with [docker]
