@@ -16,7 +16,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 `-Dbrowser=chrome-remote`
 `-Dbrowser=firefox-remote`
 
-[test.properties]: resources/test.properties
+[test.properties]: src/main/resources/test.properties
 [docker]: https://www.docker.com/
 [docker-compose.yml]: resources/docker-compose.yml
 * If no parameter -> test locally under **chrome** (_browser_ parameter in [test.properties])
@@ -30,7 +30,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
 * [Log4j](https://logging.apache.org/log4j/2.x/) -> `./target/logs` folder
 * screenshots on test fail -> `./target/screenshots` folder
-* configuration file -> `./resources/test.properties`
+* configuration file -> `./src/main/resources/test.properties`
 * generated data (login credentials, address) saved to an Excel sheet -> `./resources/TestData.xls`
 
 ## scenarios
