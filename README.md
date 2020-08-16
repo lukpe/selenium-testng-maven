@@ -31,7 +31,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * [Log4j](https://logging.apache.org/log4j/2.x/) -> `./target/logs` folder
 * screenshots on test fail -> `./target/screenshots` folder
 * configuration file -> `./src/main/resources/test.properties`
-* generated data (login credentials, address) saved to an Excel sheet -> `./resources/TestData.xls`
+* generated data (login credentials, address) saved to an Excel sheet -> `./src/java/resources/TestData.xls`
 
 ## scenarios
 ### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
@@ -41,7 +41,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 2. Verify if personal information is correctly displayed on the account page.
 ### [Scenario_03_OrderProduct](src/test/java/org/test/Scenario_03_OrderProduct.java)
 [testng.xml]: ./testng.xml
-[TestData.xls]: ./resources/TestData.xls
+[TestData.xls]: src/test/resources/TestData.xls
 ###### Product `name`, `quantity` and `payment` method parametrized in [testng.xml]
 1. Search for a product, save its name, price and desired quantity to [TestData.xls] and proceed to checkout.
 2. Verify the summary page before and after adding product quantity (`if quantity > 1`) also verify total prices with and without tax.
