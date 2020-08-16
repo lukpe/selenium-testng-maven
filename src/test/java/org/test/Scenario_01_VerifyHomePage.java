@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.HomePage;
 
@@ -26,6 +27,12 @@ public class Scenario_01_VerifyHomePage extends Base {
     @Test
     public void validatePageTitle() {
         assertTrue(hp.verifyPageTitle("My Store"));
+    }
+
+    @Ignore
+    @Test
+    public void negativePageTitle(){
+        assertTrue(hp.verifyPageTitle("Store"));
     }
 
     @Test
