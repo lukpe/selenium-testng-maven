@@ -8,30 +8,31 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 
 ## how to run
 * `git clone https://github.com/lukpe/selenium-testng-maven.git`
-* `mvn test`
+* `mvn clean test -Dbrowser={browser}`
 
 | optional parameters |
 |---------------------|
-`-Dbrowser=firefox`
-`-Dbrowser=chrome-remote`
-`-Dbrowser=firefox-remote`
+|`-Dbrowser=chrome`|
+|`-Dbrowser=firefox`|
+|`-Dbrowser=chrome-remote`|
+|`-Dbrowser=firefox-remote`|
 
 [test.properties]: src/main/resources/test.properties
 [docker]: https://www.docker.com/
 [docker-compose.yml]: src/main/resources/docker-compose.yml
-* If no parameter -> test locally under **chrome** (_browser_ parameter in [test.properties])
+* If no parameter -> test locally on **chrome** (_browser_ parameter in [test.properties])
 * If `-remote` -> _gridURL_ parameter from [test.properties]
 * Added [docker-compose.yml] to run `-Dbrowser=chrome-remote` on _localhost_ with [docker]
 
-## highlights
+## main features
 * [Page Factory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory)
 * [TestNG](https://testng.org/doc/)
 * [Maven Surefire Reports](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
-* [Log4j](https://logging.apache.org/log4j/2.x/) -> `./target/logs` folder
-* screenshots on test fail -> `./target/screenshots` folder
+* [Apache Log4j2 ](https://logging.apache.org/log4j/2.x/) logs -> `./target/logs`
+* screenshots on test fail -> `./target/screenshots`
 * configuration file -> `./src/main/resources/test.properties`
-* generated data (login credentials, address) saved to an Excel sheet -> `./src/java/resources/TestData.xls`
+* generated data (login credentials, address, etc.) saved to an Excel sheet -> `./src/java/resources/TestData.xls`
 
 ## scenarios
 ### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
