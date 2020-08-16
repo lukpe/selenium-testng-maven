@@ -1,8 +1,6 @@
 # Project exclude paths
 /target/
 /workspace.xml
-/logs/
-/screenshots/
 /.idea/
 *.iml
 testng_debug.xml
