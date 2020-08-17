@@ -23,7 +23,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * Added [docker-compose.yml] to run `-Dbrowser=chrome-remote` on _localhost_ with [docker]
 
 ## main features
-* [Page Factory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory)
+* [PageFactory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory)
 * [TestNG](https://testng.org/doc/)
 * [Maven Surefire Reports](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
