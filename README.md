@@ -11,7 +11,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * `mvn clean test -Dbrowser={browser}`
 
 ## supported `{browser}` values
-`chrome` `firefox` `chrome-remote` `firefox-remote`
+`chrome` `chrome-remote` `firefox` `firefox-remote`
 
 ## configuration
 [test.properties]: src/main/resources/test.properties
