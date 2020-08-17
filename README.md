@@ -29,8 +29,8 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
 * [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) logs -> `./target/logs`
 * screenshots on test fail -> `./target/screenshots`
-* configuration file -> `./src/main/resources/test.properties`
 * generated data (login credentials, address, etc.) saved to an Excel sheet -> `./src/java/resources/TestData.xls`
+* configuration file -> `./src/main/resources/test.properties`
 
 ## test scenarios
 ### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
