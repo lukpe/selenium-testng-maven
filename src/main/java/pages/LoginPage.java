@@ -133,8 +133,18 @@ public class LoginPage {
         passwordField.sendKeys(accountData.get("password"));
         //Date of Birth
         selectValue(years, 2);
-        selectValue(months, 1);
-        selectValue(days, 1);
+        String month = selectValue(months, 1);
+        int day = Integer.parseInt(selectValue(days, 1));
+        //Quick fix for February days > 28 and other months days > 30
+        if (month.contains("February")) {
+            while (day > 28) {
+                day = Integer.parseInt(selectValue(days, 1));
+            }
+        } else {
+            while (day > 30) {
+                day = Integer.parseInt(selectValue(days, 1));
+            }
+        }
         //Newsletter
         newsletter.click();
         //Special offers
@@ -195,12 +205,13 @@ public class LoginPage {
         submitLogin.click();
     }
 
-    private void selectValue(WebElement webElement, int startFrom) {
+    private String selectValue(WebElement webElement, int startFrom) {
         Select select = new Select(webElement);
         List<WebElement> selectList = select.getOptions();
         int selectSize = selectList.size();
         int randomIndex = ThreadLocalRandom.current().nextInt(startFrom, selectSize);
         select.selectByIndex(randomIndex);
+        return select.getFirstSelectedOption().getText().trim();
     }
 
     private static int getRndInt(int min, int max) {
