@@ -1,10 +1,11 @@
 package org.test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -37,11 +38,13 @@ public class TestBase {
         //RemoteDriver
         if (browserName.contains("remote")) {
             DesiredCapabilities dc = new DesiredCapabilities();
-            dc.setPlatform(Platform.LINUX);
             if (browserName.contains("chrome")) {
                 dc.setBrowserName("chrome");
             } else if (browserName.contains("firefox")) {
                 dc.setBrowserName("firefox");
+            } else if (browserName.contains("edge")){
+                dc.setBrowserName("edge");
+
             }
             driver = new RemoteWebDriver(new URL(properties.getProperty("gridURL") + "/wd/hub"), dc);
         } else {
@@ -54,6 +57,10 @@ public class TestBase {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions options = new FirefoxOptions();
                 driver = new FirefoxDriver(options);
+            } else if (browserName.contains("edge")) {
+                WebDriverManager.edgedriver().setup();
+                EdgeOptions options = new EdgeOptions();
+                driver = new EdgeDriver(options);
             }
         }
 
