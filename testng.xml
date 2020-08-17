@@ -14,7 +14,7 @@
             <class name="org.test.Scenario_01_VerifyHomePage"/>
         </classes>
     </test>
-    <test verbose="2" name="Scenario_02-03_Variant_01">
+    <test verbose="2" name="Scenario_02-03_Variant_01" parallel="classes">
         <classes>
             <class name="org.test.Scenario_02_CreateAccount"/>
             <class name="org.test.Scenario_03_OrderProduct">
@@ -24,7 +24,7 @@
             </class>
         </classes>
     </test>
-    <test verbose="2" name="Scenario_02-03_Variant_02">
+    <test verbose="2" name="Scenario_02-03_Variant_02" parallel="classes">
         <classes>
             <class name="org.test.Scenario_02_CreateAccount"/>
             <class name="org.test.Scenario_03_OrderProduct">

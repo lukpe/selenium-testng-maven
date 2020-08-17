@@ -188,7 +188,6 @@ public class LoginPage {
         //Register
         submitAccount.click();
 
-        excel.addNewRow();
         for (Map.Entry<String, String> entry : accountData.entrySet()) {
             excel.setColumnValue(entry.getKey(), entry.getValue());
         }

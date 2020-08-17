@@ -32,9 +32,10 @@ public class Scenario_02_CreateAccount extends TestBase {
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver);
         excel = new ExcelDriver();
+        excel.addNewRow();
     }
 
-    @Test(groups = "accountCreation")
+    @Test(groups = {"accountCreation"})
     public void createAccount() {
         //Create an account
         hp.signIn();
@@ -42,7 +43,7 @@ public class Scenario_02_CreateAccount extends TestBase {
         ce.waitForHeading("MY ACCOUNT");
     }
 
-    @Test(groups = "accountCreation",dependsOnMethods = "createAccount")
+    @Test(groups = "accountCreation", dependsOnMethods = "createAccount")
     public void verifyAccount() {
         //Verify personal information
         hp.signOut();
