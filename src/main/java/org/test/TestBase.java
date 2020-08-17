@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class Base {
+public class TestBase {
 
     public WebDriver driver;
     public Properties properties;

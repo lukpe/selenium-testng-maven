@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static org.testng.Assert.assertTrue;
 
-public class Scenario_01_VerifyHomePage extends Base {
+public class Scenario_01_VerifyHomePage extends TestBase {
     WebDriver driver;
     WebDriverWait wait;
     HomePage hp;

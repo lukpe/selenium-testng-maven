@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import static org.testng.Assert.assertTrue;
 
-public class Scenario_02_CreateAccount extends Base {
+public class Scenario_02_CreateAccount extends TestBase {
     WebDriver driver;
     WebDriverWait wait;
     CommonElements ce;

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import static org.testng.Assert.assertTrue;
 
-public class Scenario_03_OrderProduct extends Base {
+public class Scenario_03_OrderProduct extends TestBase {
     WebDriver driver;
     WebDriverWait wait;
     Actions actions;
