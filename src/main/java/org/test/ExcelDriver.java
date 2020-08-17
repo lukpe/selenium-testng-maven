@@ -1,5 +1,6 @@
 package org.test;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,6 +20,19 @@ public class ExcelDriver {
     Workbook loginData;
     Sheet sheet;
     private int cellIndex;
+    private final String filename = "TestData.xls";
+    private final String template = System.getProperty("user.dir") + "\\src\\test\\resources\\" + filename;
+    private final String target = System.getProperty("user.dir") + "\\target\\test-data\\";
+
+    public void copyTemplate() {
+        File templateFile = new File(template);
+        File targetFile = new File(target);
+        try {
+            FileUtils.copyFileToDirectory(templateFile, targetFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void addNewRow() {
         try {
@@ -80,8 +94,7 @@ public class ExcelDriver {
 
     private void setUp() {
         try {
-            file = new File(System.getProperty("user.dir") +
-                    "\\src\\test\\resources\\TestData.xls");
+            file = new File(target + filename);
             fis = new FileInputStream(file);
             loginData = new HSSFWorkbook(fis);
             sheet = loginData.getSheet("Login");

@@ -1,4 +1,4 @@
-package org.test.tools;
+package org.test.listeners;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +13,7 @@ import org.testng.ITestResult;
 import java.io.File;
 import java.io.IOException;
 
-public class Listeners implements ITestListener {
+public class TestListener implements ITestListener {
 
     private static final Logger logger = LogManager.getLogger(ITestListener.class);
 
