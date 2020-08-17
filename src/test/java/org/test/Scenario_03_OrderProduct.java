@@ -48,7 +48,7 @@ public class Scenario_03_OrderProduct extends TestBase {
     }
 
     @Parameters({"product", "quantity"})
-    @Test(priority = 1)
+    @Test()
     public void addToCart(String product, int quantity) {
         product = product.toLowerCase();
         hp.searchProduct(product);
@@ -62,7 +62,7 @@ public class Scenario_03_OrderProduct extends TestBase {
     }
 
     @Parameters({"product", "quantity"})
-    @Test(priority = 2)
+    @Test(dependsOnMethods = "addToCart")
     public void summary(String product, int quantity) {
         product = product.toLowerCase();
         assertTrue(sump.verifyProductQtyTitle(1));
@@ -79,19 +79,19 @@ public class Scenario_03_OrderProduct extends TestBase {
         sump.proceedCheckOut();
     }
 
-    @Test(priority = 3)
+    @Test(dependsOnGroups = "accountCreation", dependsOnMethods = "summary")
     public void signIn() {
         lp.signIn();
     }
 
-    @Test(priority = 4)
+    @Test(dependsOnMethods = "signIn")
     public void addresses() {
         ce.waitForHeading("ADDRESSES");
         assertTrue(ap.verifyAddressData());
         ap.proceedCheckout();
     }
 
-    @Test(priority = 5)
+    @Test(dependsOnMethods = "addresses")
     public void shipping() {
         ce.waitForHeading("SHIPPING");
         assertTrue(shp.verifyTotalShipping(totalShipping));
@@ -103,7 +103,7 @@ public class Scenario_03_OrderProduct extends TestBase {
     }
 
     @Parameters({"product", "payment"})
-    @Test(priority = 6)
+    @Test(dependsOnMethods = "shipping")
     public void payment(String product, String payment) {
         product = product.toLowerCase();
         ce.waitForHeading("PLEASE CHOOSE YOUR PAYMENT METHOD");
