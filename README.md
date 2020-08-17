@@ -27,7 +27,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * [TestNG](https://testng.org/doc/)
 * [Maven Surefire Reports](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
-* [Apache Log4j2 ](https://logging.apache.org/log4j/2.x/) logs -> `./target/logs`
+* [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) logs -> `./target/logs`
 * screenshots on test fail -> `./target/screenshots`
 * configuration file -> `./src/main/resources/test.properties`
 * generated data (login credentials, address, etc.) saved to an Excel sheet -> `./src/java/resources/TestData.xls`
