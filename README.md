@@ -13,7 +13,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 ## supported `{browser}` values
 `chrome` `firefox` `chrome-remote` `firefox-remote`
 
-## confifuration
+## configuration
 [test.properties]: src/main/resources/test.properties
 [docker]: https://www.docker.com/
 [docker-compose.yml]: src/main/resources/docker-compose.yml
