@@ -4,7 +4,7 @@ import org.testng.annotations.BeforeSuite;
 
 public class SuiteSetup {
     @BeforeSuite
-    public void setUp(){
+    public void setUp() {
         ExcelDriver excel = new ExcelDriver();
         excel.copyTemplate();
     }

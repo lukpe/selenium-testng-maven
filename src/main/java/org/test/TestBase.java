@@ -42,9 +42,8 @@ public class TestBase {
                 dc.setBrowserName("chrome");
             } else if (browserName.contains("firefox")) {
                 dc.setBrowserName("firefox");
-            } else if (browserName.contains("edge")){
+            } else if (browserName.contains("edge")) {
                 dc.setBrowserName("edge");
-
             }
             driver = new RemoteWebDriver(new URL(properties.getProperty("gridURL") + "/wd/hub"), dc);
         } else {
