@@ -10,18 +10,16 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * `git clone https://github.com/lukpe/selenium-testng-maven.git`
 * `mvn clean test -Dbrowser={browser}`
 
-| optional parameters |
-|---------------------|
-|`-Dbrowser=chrome`|
-|`-Dbrowser=firefox`|
-|`-Dbrowser=chrome-remote`|
-|`-Dbrowser=firefox-remote`|
+## supported `{browser}` values
+`chrome` `firefox` `chrome-remote` `firefox-remote`
 
+## confifuration
 [test.properties]: src/main/resources/test.properties
 [docker]: https://www.docker.com/
 [docker-compose.yml]: src/main/resources/docker-compose.yml
-* If no parameter -> test locally on **chrome** (_browser_ parameter in [test.properties])
-* If `-remote` -> _gridURL_ parameter from [test.properties]
+* If no `-Dbrowser` then the test will run locally on browser specified in [test.properties]
+* If `-Dbrowser=*-remote` then  _gridURL_ parameter is taken from [test.properties]
+* `homePageURL` & `timeOut` are also set in [test.properties]
 * Added [docker-compose.yml] to run `-Dbrowser=chrome-remote` on _localhost_ with [docker]
 
 ## main features
@@ -34,7 +32,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * configuration file -> `./src/main/resources/test.properties`
 * generated data (login credentials, address, etc.) saved to an Excel sheet -> `./src/java/resources/TestData.xls`
 
-## scenarios
+## test scenarios
 ### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
 * Check for presence/validate: _page title, logo image, search bar, shopping cart ,"Sign in" link_
 ### [Scenario_02_CreateAccount](/src/test/java/org/test/Scenario_02_CreateAccount.java)
