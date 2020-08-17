@@ -1,4 +1,4 @@
-package org.test;
+package org.test.tools;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.test.TestBase;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
@@ -28,7 +29,7 @@ public class Listeners implements ITestListener {
 
         try {
             Object currentClass = result.getInstance();
-            WebDriver driver = ((Base) currentClass).getDriver();
+            WebDriver driver = ((TestBase) currentClass).getDriver();
 
             File scrShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             String fileName = "scrShot_" + result.getTestClass().getName() + "_" + result.getName() + "_" + System.currentTimeMillis() + ".png";

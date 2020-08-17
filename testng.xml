@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Ecommerce Suite">
     <listeners>
-        <listener class-name="org.test.Listeners"/>
+        <listener class-name="org.test.tools.Listeners"/>
     </listeners>
     <test verbose="2" name="Scenario_01" enabled="true">
         <classes>
