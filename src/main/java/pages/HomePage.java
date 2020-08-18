@@ -37,24 +37,24 @@ public class HomePage {
     @FindBy(xpath = "//a[@class='logout']")
     WebElement logout;
 
-    public boolean verifyPageTitle(String title) {
-        return driver.getTitle().contentEquals(title);
+    public String getPageTitle() {
+        return driver.getTitle();
     }
 
-    public boolean verifyLogo() {
-        return logo.isDisplayed();
+    public WebElement getLogo() {
+        return logo;
     }
 
-    public boolean verifySearchBar() {
-        return searchBar.isDisplayed();
+    public WebElement getSearchBar() {
+        return searchBar;
     }
 
-    public boolean verifyShoppingCart() {
-        return shoppingCart.isDisplayed();
+    public WebElement getShoppingCart() {
+        return shoppingCart;
     }
 
-    public boolean verifySignIn() {
-        return login.isDisplayed();
+    public WebElement getSignIn() {
+        return login;
     }
 
     public void signIn() {

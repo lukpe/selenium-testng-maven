@@ -9,6 +9,7 @@ import pages.HomePage;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class Scenario_01_VerifyHomePage extends TestBase {
@@ -30,33 +31,33 @@ public class Scenario_01_VerifyHomePage extends TestBase {
 
     @Test
     public void validatePageTitle() {
-        assertTrue(hp.verifyPageTitle("My Store"));
+        assertEquals (hp.getPageTitle(),"My Store");
     }
 
     @Ignore
     @Test
     public void negativePageTitle(){
-        assertTrue(hp.verifyPageTitle("Store"));
+        assertEquals(hp.getPageTitle(),"Store");
     }
 
     @Test
     public void validateLogo() {
-        assertTrue(hp.verifyLogo());
+        assertTrue(hp.getLogo().isDisplayed());
     }
 
     @Test
     public void validateSearchBar() {
-        assertTrue(hp.verifySearchBar());
+        assertTrue(hp.getSearchBar().isDisplayed());
     }
 
     @Test
     public void validateShoppingCart() {
-        assertTrue(hp.verifyShoppingCart());
+        assertTrue(hp.getShoppingCart().isDisplayed());
     }
 
     @Test
     public void validateSignInLink() {
-        assertTrue(hp.verifySignIn());
+        assertTrue(hp.getSignIn().isDisplayed());
     }
 
     @AfterClass
