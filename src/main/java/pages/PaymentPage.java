@@ -15,7 +15,7 @@ public class PaymentPage {
     public PaymentPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
-        ce = new CommonElements(driver, wait);
+        ce = new CommonElements(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -32,10 +32,16 @@ public class PaymentPage {
     WebElement orderConfirmation;
 
     public void choosePaymentMethod(String payment) {
-        if (payment.equalsIgnoreCase("bankwire")) {
-            chooseBankWire();
-        } else if (payment.equalsIgnoreCase("cheque")) {
-            chooseCheque();
+        try {
+            if (payment.equalsIgnoreCase("bankwire")) {
+                bankWire.click();
+            } else if (payment.equalsIgnoreCase("cheque")) {
+                cheque.click();
+            } else {
+                throw new Exception("Invalid payment method: " + payment);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -43,19 +49,24 @@ public class PaymentPage {
         orderConfirmation.click();
     }
 
-    private void chooseBankWire() {
-        bankWire.click();
-        ce.waitForSubHeading("BANK-WIRE PAYMENT.");
+    public boolean verifySubheading(String payment) {
+        try {
+            if (payment.equalsIgnoreCase("bankwire")) {
+                return ce.getSubheading().matches("BANK-WIRE PAYMENT.");
+            } else if (payment.equalsIgnoreCase("cheque")) {
+                return ce.getSubheading().matches("CHECK PAYMENT");
+            } else {
+                throw new Exception("Invalid payment method: " + payment);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    private void chooseCheque() {
-        cheque.click();
-        ce.waitForSubHeading("CHECK PAYMENT");
-    }
-
-    public boolean verifyTotalPrice(String correctTotal) {
+    public String getTotalPrice() {
         wait.until(ExpectedConditions.visibilityOf(totalAmount));
-        return totalAmount.getText().trim().contentEquals(correctTotal);
+        return totalAmount.getText().trim();
     }
 
 }

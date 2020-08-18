@@ -39,14 +39,14 @@ public class SearchPage {
     @FindBy(xpath = "//span[@title='Continue shopping']")
     WebElement continueShopping;
 
-    public boolean checkSearchResult(String name) {
+    public String getSearchResult() {
         wait.until(ExpectedConditions.visibilityOf(searchResult));
-        return searchResult.getAttribute("title").toLowerCase().contains(name);
+        return searchResult.getAttribute("title").toLowerCase();
     }
 
-    public boolean verifyMessageHeader(String message) {
+    public String getMessageHeader() {
         wait.until(ExpectedConditions.visibilityOf(header));
-        return header.getAttribute("innerText").trim().equalsIgnoreCase(message);
+        return header.getAttribute("innerText").trim();
     }
 
     public void addProductToCart() {

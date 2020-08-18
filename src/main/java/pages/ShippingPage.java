@@ -34,38 +34,39 @@ public class ShippingPage {
     WebElement errorMessage;
 
     @FindBy(id = "cgv")
-    WebElement termsAndCondChckBox;
+    WebElement termsAndCondCheckBox;
 
     @FindBy(xpath = "//button//span[contains(text(),'Proceed to checkout')]")
     WebElement checkOut;
 
-    public boolean verifyTotalShipping(String correctTotal) {
-        return totalShipping.getText().contentEquals(correctTotal);
+    public String getTotalShipping() {
+        return totalShipping.getText();
     }
 
-    public void verifyTermsAndConditions() {
-        CommonElements ce = new CommonElements(driver, wait);
+    public String getTermsAndConditionsHeading() {
+        CommonElements ce = new CommonElements(driver);
         termsAndConditions.click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(termsAndCondFrame));
-        ce.waitForHeading("TERMS AND CONDITIONS OF USE");
+        String heading = ce.getHeading();
         driver.switchTo().defaultContent();
         frameClose.click();
+        return heading;
     }
 
     public void proceedCheckOut() {
         new Actions(driver).pause(500).moveToElement(checkOut).click().perform();
     }
 
-    public boolean verifyErrorMessage(String message) {
+    public String getErrorMessage() {
         wait.until(ExpectedConditions.visibilityOf(errorMessage));
         try {
-            return errorMessage.getText().contains(message);
+            return errorMessage.getText();
         } finally {
             frameClose.click();
         }
     }
 
     public void acceptTermsAndConditions() {
-        new Actions(driver).pause(500).moveToElement(termsAndCondChckBox).click().perform();
+        new Actions(driver).pause(500).moveToElement(termsAndCondCheckBox).click().perform();
     }
 }

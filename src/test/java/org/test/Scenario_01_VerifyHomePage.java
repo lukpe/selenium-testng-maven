@@ -2,7 +2,6 @@ package org.test;
 
 import org.apache.logging.log4j.ThreadContext;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import pages.HomePage;
 
@@ -14,30 +13,28 @@ import static org.testng.Assert.assertTrue;
 
 public class Scenario_01_VerifyHomePage extends TestBase {
     WebDriver driver;
-    WebDriverWait wait;
     HomePage hp;
 
     @BeforeClass
     public void setUp() throws IOException {
         driver = initializeDriver();
-        wait = new WebDriverWait(driver, timeOut);
-        hp = new HomePage(driver, wait);
+        hp = new HomePage(driver);
     }
 
     @BeforeMethod
-    public void setThreadName(Method method){
+    public void setThreadName(Method method) {
         ThreadContext.put("threadName", method.getName());
     }
 
     @Test
     public void validatePageTitle() {
-        assertEquals (hp.getPageTitle(),"My Store");
+        assertEquals(hp.getPageTitle(), "My Store");
     }
 
     @Ignore
     @Test
-    public void negativePageTitle(){
-        assertEquals(hp.getPageTitle(),"Store");
+    public void negativePageTitle() {
+        assertEquals(hp.getPageTitle(), "Store");
     }
 
     @Test

@@ -33,29 +33,40 @@ public class OrderConfirmationPage {
     @FindBy(xpath = "//div[@class='box order-confirmation']")
     WebElement confirmationCheque;
 
-    public boolean verifySuccessMessage(String payment, String message) {
+    public String getSuccessMessage(String payment) {
         WebElement messageElement;
-        if (payment.equalsIgnoreCase("bankwire")) {
-            messageElement = successBankWire;
-        } else if (payment.equals("cheque")) {
-            messageElement = successCheque;
-        } else {
-            return false;
+        try {
+            if (payment.equalsIgnoreCase("bankwire")) {
+                messageElement = successBankWire;
+            } else if (payment.equals("cheque")) {
+                messageElement = successCheque;
+            } else {
+                throw new Exception("Invalid payment method: " + payment);
+            }
+            wait.until(ExpectedConditions.visibilityOf(messageElement));
+            return messageElement.getText();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        wait.until(ExpectedConditions.visibilityOf(messageElement));
-        return messageElement.getText().contains(message);
+        return null;
     }
 
-    public boolean verifyTotalPrice(String correctTotal) {
-        return totalPrice.getText().trim().contentEquals(correctTotal);
+    public String getTotalPrice() {
+        return totalPrice.getText().trim();
     }
 
     public void saveOrderReference(String payment) {
         String fullText = null;
-        if (payment.equalsIgnoreCase("bankwire")) {
-            fullText = confirmationBankWire.getText().replace("\n", "");
-        } else if (payment.equalsIgnoreCase("cheque")) {
-            fullText = confirmationCheque.getText().replace("\n", "");
+        try {
+            if (payment.equalsIgnoreCase("bankwire")) {
+                fullText = confirmationBankWire.getText().replace("\n", "");
+            } else if (payment.equalsIgnoreCase("cheque")) {
+                fullText = confirmationCheque.getText().replace("\n", "");
+            } else {
+                throw new Exception("Invalid payment method: " + payment);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         assert fullText != null;
         int startIndex = fullText.indexOf("reference") + 10;

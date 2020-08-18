@@ -25,17 +25,22 @@ public class AddressPage {
         Map<String, String> addressMap = fillAddressMap();
         String xpath = "//ul[@id='address_delivery']//li[@class='";
         boolean found = true;
-        for (int i = 0; i < 2; i++) {
-            for (Map.Entry<String, String> entry : addressMap.entrySet()) {
-                if (i == 1) {
-                    xpath = "//ul[@id='address_invoice']//li[@class='";
-                }
-                WebElement addressField = driver.findElement(By.xpath(xpath + entry.getKey() + "']"));
-                found = addressField.getText().contentEquals(entry.getValue());
-                if (!found) {
-                    break;
+        try {
+            for (int i = 0; i < 2; i++) {
+                for (Map.Entry<String, String> entry : addressMap.entrySet()) {
+                    if (i == 1) {
+                        xpath = "//ul[@id='address_invoice']//li[@class='";
+                    }
+                    WebElement addressField = driver.findElement(By.xpath(xpath + entry.getKey() + "']"));
+                    found = addressField.getText().contentEquals(entry.getValue());
+                    if (!found) {
+                        throw new Exception("Address data expected:" + entry.getValue() +
+                                ", got:" + addressField.getText());
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return found;
     }

@@ -30,8 +30,8 @@ public class Scenario_02_CreateAccount extends TestBase {
     public void setUp() throws IOException {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
-        ce = new CommonElements(driver, wait);
-        hp = new HomePage(driver, wait);
+        ce = new CommonElements(driver);
+        hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver);
         excel = new ExcelDriver();
@@ -48,7 +48,7 @@ public class Scenario_02_CreateAccount extends TestBase {
         //Create an account
         hp.signIn();
         lp.createAccount();
-        ce.waitForHeading("MY ACCOUNT");
+        assertEquals(ce.getHeading(), "MY ACCOUNT");
     }
 
     @Test(groups = "accountCreation", dependsOnMethods = "createAccount")
@@ -56,9 +56,9 @@ public class Scenario_02_CreateAccount extends TestBase {
         //Verify personal information
         hp.signOut();
         lp.signIn();
-        ce.waitForHeading("MY ACCOUNT");
+        assertEquals(ce.getHeading(), "MY ACCOUNT");
         map.getPersonalInformation();
-        assertEquals(ce.getSubHeading(), "YOUR PERSONAL INFORMATION");
+        assertEquals(ce.getSubheading(), "YOUR PERSONAL INFORMATION");
         assertEquals(map.getFirstName(), excel.getColumnValue("firstname"));
         assertEquals(map.getLastName(), excel.getColumnValue("lastname"));
         assertEquals(map.getEmail(), excel.getColumnValue("email"));

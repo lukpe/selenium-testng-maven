@@ -47,27 +47,30 @@ public class SummaryPage {
     @FindBy(xpath = "//p//a[@title='Proceed to checkout']")
     WebElement checkOut;
 
-    public boolean verifyProductQtyTitle(int quantity) {
-        String ending = "";
-        if (quantity > 1) {
-            ending = "s";
-        }
+    public String getProductQtyTitle() {
         wait.until(ExpectedConditions.visibilityOf(cartTitle));
-        return cartTitle.getText().contentEquals("SHOPPING-CART SUMMARY\nYour shopping cart contains: "
-                + quantity + " Product" + ending);
+        return cartTitle.getText();
     }
 
-    public boolean verifyProductName(String input) {
-        return productName.getText().matches(".*(?i)" + input + "(?-i).*");
+    public void verifyProductName(String input) {
+        try {
+            if (!productName.getText().matches(".*(?i)" + input + "(?-i).*")) {
+                throw new Exception("product name not found: " + input);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public boolean verifyProductQty(int quantity) {
-        return productQuantity.getAttribute("value").contentEquals(String.valueOf(quantity));
+    public String getProductQty() {
+        return productQuantity.getAttribute("value");
     }
 
     public void addProduct(int quantity) {
-        for (int i = 1; i < quantity; i++) {
-            new Actions(driver).moveToElement(iconPlus).click().pause(2000).perform();
+        if (quantity > 1) {
+            for (int i = 1; i < quantity; i++) {
+                new Actions(driver).moveToElement(iconPlus).click().pause(2000).perform();
+            }
         }
     }
 
@@ -82,7 +85,15 @@ public class SummaryPage {
             double currentTotal = getDoubleValue(totalPrice);
             double correctTotalNoTax = productPrice * productQuantity + shipping;
             double correctTotal = correctTotalNoTax + tax;
-            return currentTotalNoTax == correctTotalNoTax & currentTotal == correctTotal;
+            if (currentTotalNoTax != correctTotalNoTax) {
+                throw new Exception("Total without tax expected: " + correctTotalNoTax +
+                        ", got: " + currentTotalNoTax);
+            } else if (currentTotal != correctTotal) {
+                throw new Exception("Total with tax expected: " + correctTotal +
+                        ", got: " + currentTotal);
+            } else {
+                return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

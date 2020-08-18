@@ -10,6 +10,7 @@ import pages.*;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class Scenario_03_OrderProduct extends TestBase {
@@ -33,8 +34,8 @@ public class Scenario_03_OrderProduct extends TestBase {
     public void setUp() throws IOException {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
-        ce = new CommonElements(driver, wait);
-        hp = new HomePage(driver, wait);
+        ce = new CommonElements(driver);
+        hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver);
         srchp = new SearchPage(driver, wait);
@@ -56,12 +57,12 @@ public class Scenario_03_OrderProduct extends TestBase {
     public void addToCart(String product, int quantity) {
         product = product.toLowerCase();
         hp.searchProduct(product);
-        assertTrue(srchp.checkSearchResult(product));
+        assertTrue(srchp.getSearchResult().contains(product),"Product name missing: " + product);
         srchp.saveProductDetails(product, quantity);
         srchp.addProductToCart();
-        assertTrue(srchp.verifyMessageHeader("Product successfully added to your shopping cart"));
+        assertEquals(srchp.getMessageHeader(), "Product successfully added to your shopping cart");
         srchp.getContinueShopping().click();
-        assertTrue(hp.checkCartQuantity("1"));
+        assertEquals(hp.getCartQuantity(), "Cart 1 Product");
         hp.proceedCheckOut();
     }
 
@@ -69,14 +70,13 @@ public class Scenario_03_OrderProduct extends TestBase {
     @Test(dependsOnMethods = "addToCart")
     public void summary(String product, int quantity) {
         product = product.toLowerCase();
-        assertTrue(sump.verifyProductQtyTitle(1));
-        assertTrue(sump.verifyProductQty(1));
-        assertTrue(sump.verifyProductName(product));
-        if (quantity > 1) {
-            sump.addProduct(quantity);
-            assertTrue(sump.verifyProductQtyTitle(quantity));
-            assertTrue(sump.verifyProductQty(quantity));
-        }
+        assertTrue(sump.getProductQtyTitle().contains("SHOPPING-CART SUMMARY\nYour shopping cart contains: 1 Product"));
+        assertEquals(sump.getProductQty(), "1");
+        sump.verifyProductName(product);
+        sump.addProduct(quantity);
+        assertTrue(sump.getProductQtyTitle().contains("SHOPPING-CART SUMMARY\nYour shopping cart contains: " +
+                quantity + " Product"));
+        assertEquals(sump.getProductQty(), String.valueOf(quantity));
         assertTrue(sump.verifyTotalPrice());
         totalPrice = sump.getTotalPrice();
         totalShipping = sump.getTotalShipping();
@@ -90,18 +90,18 @@ public class Scenario_03_OrderProduct extends TestBase {
 
     @Test(dependsOnMethods = "signIn")
     public void addresses() {
-        ce.waitForHeading("ADDRESSES");
+        assertEquals(ce.getHeading(), "ADDRESSES");
         assertTrue(ap.verifyAddressData());
         ap.proceedCheckout();
     }
 
     @Test(dependsOnMethods = "addresses")
     public void shipping() {
-        ce.waitForHeading("SHIPPING");
-        assertTrue(shp.verifyTotalShipping(totalShipping));
-        shp.verifyTermsAndConditions();
+        assertEquals(ce.getHeading(), "SHIPPING");
+        assertEquals(shp.getTotalShipping(), totalShipping);
+        assertEquals(shp.getTermsAndConditionsHeading(), "TERMS AND CONDITIONS OF USE");
         shp.proceedCheckOut();
-        assertTrue(shp.verifyErrorMessage("You must agree to the terms of service before continuing."));
+        assertEquals(shp.getErrorMessage(), "You must agree to the terms of service before continuing.");
         shp.acceptTermsAndConditions();
         shp.proceedCheckOut();
     }
@@ -110,14 +110,15 @@ public class Scenario_03_OrderProduct extends TestBase {
     @Test(dependsOnMethods = "shipping")
     public void payment(String product, String payment) {
         product = product.toLowerCase();
-        ce.waitForHeading("PLEASE CHOOSE YOUR PAYMENT METHOD");
-        assertTrue(sump.verifyProductName(product));
+        assertEquals(ce.getHeading(), "PLEASE CHOOSE YOUR PAYMENT METHOD");
+        sump.verifyProductName(product);
         pp.choosePaymentMethod(payment);
-        assertTrue(pp.verifyTotalPrice(totalPrice));
+        assertTrue(pp.verifySubheading(payment), "Page subheading mismatch");
+        assertEquals(pp.getTotalPrice(), totalPrice);
         pp.confirmPayment();
-        ce.waitForHeading("ORDER CONFIRMATION");
-        assertTrue(ocp.verifySuccessMessage(payment, "Your order on My Store is complete."));
-        assertTrue(ocp.verifyTotalPrice(totalPrice));
+        assertEquals(ce.getHeading(), "ORDER CONFIRMATION");
+        assertEquals(ocp.getSuccessMessage(payment), "Your order on My Store is complete.");
+        assertEquals(ocp.getTotalPrice(), totalPrice);
         ocp.saveOrderReference(payment);
     }
 

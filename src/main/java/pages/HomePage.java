@@ -5,16 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
     public WebDriver driver;
-    private final WebDriverWait wait;
     Actions actions;
 
-    public HomePage(WebDriver driver, WebDriverWait wait) {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
         actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
@@ -70,8 +67,8 @@ public class HomePage {
         searchBar.submit();
     }
 
-    public boolean checkCartQuantity(String quantity) {
-        return shoppingCart.getText().matches("^Cart " + quantity + " Products?$");
+    public String getCartQuantity() {
+        return shoppingCart.getText();
     }
 
     public void proceedCheckOut() {
