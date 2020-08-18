@@ -34,8 +34,8 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 
 | logs |
 |------|
-|* `*_method.log` - saved by _@Test_|
-|* `*_suite.log` - merged _@AfterSuite_|
+|`*_method.log` - saved by _@Test_|
+|`*_suite.log` - merged _@AfterSuite_|
 
 ## test scenarios
 ### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
