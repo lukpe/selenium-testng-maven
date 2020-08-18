@@ -3,16 +3,14 @@ package org.test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -20,57 +18,65 @@ import java.util.concurrent.TimeUnit;
 public class TestBase {
 
     public WebDriver driver;
-    public Properties properties;
+    public Properties prop;
     public int timeOut;
 
-    public WebDriver initializeDriver() throws IOException {
-        properties = new Properties();
-        FileInputStream fis = new FileInputStream(System.getProperty("user.dir")
-                + "\\src\\test\\resources\\test.properties");
-        properties.load(fis);
+    public WebDriver initializeDriver() {
+        initProp();
 
-        //Browser selection
-        String browserName = System.getProperty("browser");
-        if (browserName == null) {
-            browserName = properties.getProperty("browser");
+        String browser = System.getProperty("browser");
+        if (browser == null) {
+            browser = prop.getProperty("browser");
         }
+        browser = browser.toLowerCase();
 
-        //RemoteDriver
-        if (browserName.contains("remote")) {
+        String remote = System.getProperty("remote");
+        if (remote.equalsIgnoreCase("true")) {
             DesiredCapabilities dc = new DesiredCapabilities();
-            if (browserName.contains("chrome")) {
-                dc.setBrowserName("chrome");
-            } else if (browserName.contains("firefox")) {
-                dc.setBrowserName("firefox");
-            } else if (browserName.contains("edge")) {
-                dc.setBrowserName("edge");
+            dc.setBrowserName(browser);
+            try {
+                driver = new RemoteWebDriver(new URL(prop.getProperty("gridURL")), dc);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             }
-            driver = new RemoteWebDriver(new URL(properties.getProperty("gridURL") + "/wd/hub"), dc);
         } else {
-            //Local browser
-            if (browserName.contains("chrome")) {
-                WebDriverManager.chromedriver().setup();
-                ChromeOptions options = new ChromeOptions();
-                driver = new ChromeDriver(options);
-            } else if (browserName.contains("firefox")) {
-                WebDriverManager.firefoxdriver().setup();
-                FirefoxOptions options = new FirefoxOptions();
-                driver = new FirefoxDriver(options);
-            } else if (browserName.contains("edge")) {
-                WebDriverManager.edgedriver().setup();
-                EdgeOptions options = new EdgeOptions();
-                driver = new EdgeDriver(options);
+            switch (browser) {
+                case "chrome":
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+                    break;
+                case "firefox":
+                    WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver();
+                    break;
+                case "edge":
+                    WebDriverManager.edgedriver().setup();
+                    driver = new EdgeDriver();
+                    break;
+                default:
+                    System.out.println("Invalid browser name, selecting Chrome");
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
             }
         }
-
-        //Default timeout
-        timeOut = Integer.parseInt(properties.getProperty("timeOut"));
+        timeOut = Integer.parseInt(prop.getProperty("timeOut"));
         driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
 
-        driver.get(properties.getProperty("homePageURL"));
+        driver.get(prop.getProperty("homePageURL"));
         driver.manage().window().maximize();
 
         return driver;
+    }
+
+    private void initProp() {
+        try {
+            FileInputStream file = new FileInputStream(System.getProperty("user.dir") +
+                    "\\src\\test\\resources\\test.properties");
+            prop = new Properties();
+            prop.load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public WebDriver getDriver() {

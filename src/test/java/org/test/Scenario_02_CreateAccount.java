@@ -12,7 +12,6 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.MyAccountPage;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static org.testng.Assert.assertEquals;
@@ -27,7 +26,7 @@ public class Scenario_02_CreateAccount extends TestBase {
     ExcelDriver excel;
 
     @BeforeClass
-    public void setUp() throws IOException {
+    public void setUp() {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
         ce = new CommonElements(driver);

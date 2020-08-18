@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import pages.*;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static org.testng.Assert.assertEquals;
@@ -31,7 +30,7 @@ public class Scenario_03_OrderProduct extends TestBase {
     private String totalShipping;
 
     @BeforeClass
-    public void setUp() throws IOException {
+    public void setUp() {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
         ce = new CommonElements(driver);

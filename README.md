@@ -8,17 +8,17 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 
 ## how to run
 * `git clone https://github.com/lukpe/selenium-testng-maven.git`
-* `mvn clean test -Dbrowser={browser}`
+* `mvn clean test -Dbrowser={browser} -Dremote={true?}`
 
-## supported `{browser}` values
-`chrome` `chrome-remote` `firefox` `firefox-remote` `edge` `edge-remote`
+###### supported `{browser}` values
+`chrome` `firefox` `edge`
 
 ## configuration
 [test.properties]: src/test/resources/test.properties
 [docker]: https://www.docker.com/
 [docker-compose.yml]: src/test/resources/docker-compose.yml
 * If no `-Dbrowser` then the test will run locally on browser specified in [test.properties]
-* If `-Dbrowser=*-remote` then  _gridURL_ parameter is taken from [test.properties]
+* If `-Dremote=true` then  _gridURL_ parameter is taken from [test.properties]
 * `homePageURL` & `timeOut` are also set in [test.properties]
 * Added [docker-compose.yml] to run `-Dbrowser=chrome-remote` on _localhost_ with [docker]
 
