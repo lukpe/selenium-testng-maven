@@ -15,7 +15,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 
 ## configuration
 [test.properties]: src/test/resources/test.properties
-* If no `-Dbrowser` then the test will run locally on browser specified in [test.properties]
+* If no `-Dbrowser` then the test will run on browser specified in [test.properties]
 * If `-Dremote=true` then  _gridURL_ parameter is taken from [test.properties]
 * `homePageURL` & `timeOut` are also set in [test.properties]
 
