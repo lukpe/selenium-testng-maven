@@ -26,7 +26,7 @@ public class TestBase {
     public WebDriver initializeDriver() throws IOException {
         properties = new Properties();
         FileInputStream fis = new FileInputStream(System.getProperty("user.dir")
-                + "\\src\\main\\resources\\test.properties");
+                + "\\src\\test\\resources\\test.properties");
         properties.load(fis);
 
         //Browser selection

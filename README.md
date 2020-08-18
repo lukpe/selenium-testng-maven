@@ -14,9 +14,9 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 `chrome` `chrome-remote` `firefox` `firefox-remote` `edge` `edge-remote`
 
 ## configuration
-[test.properties]: src/main/resources/test.properties
+[test.properties]: src/test/resources/test.properties
 [docker]: https://www.docker.com/
-[docker-compose.yml]: src/main/resources/docker-compose.yml
+[docker-compose.yml]: src/test/resources/docker-compose.yml
 * If no `-Dbrowser` then the test will run locally on browser specified in [test.properties]
 * If `-Dbrowser=*-remote` then  _gridURL_ parameter is taken from [test.properties]
 * `homePageURL` & `timeOut` are also set in [test.properties]
@@ -29,8 +29,8 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
 * [Apache Log4j2 ](https://logging.apache.org/log4j/2.x/) logs -> `./target/logs`
 * screenshots on test fail -> `./target/screenshots`
-* configuration file -> `./src/main/resources/test.properties`
 * generated data (login credentials, address, etc.) saved to an Excel sheet -> `./target/test-data/TestData.xls`
+* configuration file -> `./src/test/resources/test.properties`
 
 ## test scenarios
 ### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
