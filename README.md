@@ -15,12 +15,9 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 
 ## configuration
 [test.properties]: src/test/resources/test.properties
-[docker]: https://www.docker.com/
-[docker-compose.yml]: src/test/resources/docker-compose.yml
 * If no `-Dbrowser` then the test will run locally on browser specified in [test.properties]
 * If `-Dremote=true` then  _gridURL_ parameter is taken from [test.properties]
 * `homePageURL` & `timeOut` are also set in [test.properties]
-* Added [docker-compose.yml] to run `-Dbrowser=chrome-remote` on _localhost_ with [docker]
 
 ## main features
 * [Page Factory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory)
