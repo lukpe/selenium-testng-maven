@@ -72,24 +72,29 @@ public class ExcelDriver {
         }
     }
 
-    public String getColumnValue(String columnName) throws Exception {
+    public String getColumnValue(String columnName) {
         try {
-            setUp();
             try {
-                cellIndex = getColumnByName(columnName);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                setUp();
+                try {
+                    cellIndex = getColumnByName(columnName);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
+                }
+                Row row = sheet.getRow(sheet.getLastRowNum());
+                Cell cell = row.getCell(cellIndex);
+                String cellValue = cell.getRichStringCellValue().getString();
+                fis.close();
+                return cellValue;
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            Row row = sheet.getRow(sheet.getLastRowNum());
-            Cell cell = row.getCell(cellIndex);
-            String cellValue = cell.getRichStringCellValue().getString();
-            fis.close();
-            return cellValue;
-        } catch (IOException e) {
+            throw new Exception("Invalid column name");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        throw new Exception("Invalid column name");
+        return null;
     }
 
     private void setUp() {

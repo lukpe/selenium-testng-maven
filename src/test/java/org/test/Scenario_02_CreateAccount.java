@@ -15,7 +15,7 @@ import pages.MyAccountPage;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
 
 public class Scenario_02_CreateAccount extends TestBase {
     WebDriver driver;
@@ -57,7 +57,10 @@ public class Scenario_02_CreateAccount extends TestBase {
         hp.signOut();
         lp.signIn();
         ce.waitForHeading("MY ACCOUNT");
-        assertTrue(map.verifyPersonalInformation());
+        map.getPersonalInformation();
+        assertEquals(map.getFirstName(), excel.getColumnValue("firstname"));
+        assertEquals(map.getLastName(), excel.getColumnValue("lastname"));
+        assertEquals(map.getEmail(), excel.getColumnValue("email"));
     }
 
     @AfterClass

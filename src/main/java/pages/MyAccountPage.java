@@ -9,9 +9,6 @@ import org.test.ExcelDriver;
 public class MyAccountPage {
     public WebDriver driver;
     private final ExcelDriver excel;
-    private String firstName;
-    private String lastName;
-    private String email;
 
     public MyAccountPage(WebDriver driver) {
         this.driver = driver;
@@ -31,20 +28,19 @@ public class MyAccountPage {
     @FindBy(id = "email")
     WebElement accountEmail;
 
-    public boolean verifyPersonalInformation() {
-        try {
-            firstName = excel.getColumnValue("firstname");
-            lastName = excel.getColumnValue("lastname");
-            email = excel.getColumnValue("email");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-
+    public void getPersonalInformation() {
         personalInformation.click();
-        boolean fNameCorrect = accountFirstName.getAttribute("value").equalsIgnoreCase(firstName);
-        boolean lNameCorrect = accountLastName.getAttribute("value").equalsIgnoreCase(lastName);
-        boolean emailCorrect = accountEmail.getAttribute("value").equalsIgnoreCase(email);
-        return fNameCorrect && lNameCorrect && emailCorrect;
+    }
+
+    public String getFirstName(){
+        return accountFirstName.getAttribute("value");
+    }
+
+    public String getLastName(){
+        return accountLastName.getAttribute("value");
+    }
+
+    public String getEmail(){
+        return accountEmail.getAttribute("value");
     }
 }
