@@ -19,12 +19,12 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        logger.trace("[" + result.getTestClass().getName() + "] " + result.getName() + " - SUCCESS");
+        logger.trace(result.getName() + ": PASS");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        logger.error("[" + result.getTestClass().getName() + "] " + result.getName() + " - FAIL");
+        logger.error(result.getName() + ": FAIL");
         logger.error(result.getThrowable());
 
         try {
