@@ -15,7 +15,7 @@
                           fileName="${basePath}/${date:yyy-MM-ddHHmmssSSS}-${ctx:threadName}_test.log"
                           append="false">
                         <PatternLayout
-                                pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] - %msg%n"/>
+                                pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - %msg%n"/>
                     </File>
                 </Route>
             </Routes>
