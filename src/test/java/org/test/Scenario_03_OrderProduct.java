@@ -57,7 +57,7 @@ public class Scenario_03_OrderProduct extends TestBase {
     public void addToCart(String product, int quantity) {
         product = product.toLowerCase();
         hp.searchProduct(product);
-        assertTrue(srchp.getSearchResult().contains(product),"Product name missing: " + product);
+        assertTrue(srchp.getSearchResult().contains(product), "Product name missing: " + product);
         srchp.saveProductDetails(product, quantity);
         srchp.addProductToCart();
         assertEquals(srchp.getMessageHeader(), "Product successfully added to your shopping cart");

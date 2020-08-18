@@ -19,11 +19,11 @@ public class CommonElements {
     @FindBy(className = "page-subheading")
     WebElement subheading;
 
-    public String getHeading(){
+    public String getHeading() {
         return pageHeading.getText();
     }
 
-    public String getSubheading(){
+    public String getSubheading() {
         return subheading.getText();
     }
 }

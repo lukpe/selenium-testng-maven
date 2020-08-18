@@ -4,16 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.test.ExcelDriver;
 
 public class MyAccountPage {
     public WebDriver driver;
-    private final ExcelDriver excel;
 
     public MyAccountPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        excel = new ExcelDriver();
     }
 
     @FindBy(xpath = "//span[contains(text(),'My personal information')]")
@@ -32,15 +29,15 @@ public class MyAccountPage {
         personalInformation.click();
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return accountFirstName.getAttribute("value");
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return accountLastName.getAttribute("value");
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return accountEmail.getAttribute("value");
     }
 }
