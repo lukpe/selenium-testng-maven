@@ -29,9 +29,8 @@ public class TestBase {
             browser = prop.getProperty("browser");
         }
         browser = browser.toLowerCase();
-
-        String remote = System.getProperty("remote");
-        if (remote.equalsIgnoreCase("true")) {
+        
+        if (System.getProperty("remote").equalsIgnoreCase("true")) {
             DesiredCapabilities dc = new DesiredCapabilities();
             dc.setBrowserName(browser);
             try {
