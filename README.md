@@ -32,6 +32,11 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * generated data (login credentials, address, etc.) saved to an Excel sheet -> `./target/test-data/TestData.xls`
 * configuration file -> `./src/test/resources/test.properties`
 
+| logs |
+|------|
+|* `*_method.log` - saved by _@Test_|
+|* `*_suite.log` - merged _@AfterSuite_|
+
 ## test scenarios
 ### [Scenario_01_VerifyHomePage](/src/test/java/org/test/Scenario_01_VerifyHomePage.java)
 * Check for presence/validate: _page title, logo image, search bar, shopping cart ,"Sign in" link_
