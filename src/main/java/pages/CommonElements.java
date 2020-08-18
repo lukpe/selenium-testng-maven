@@ -31,5 +31,13 @@ public class CommonElements {
         wait.until(ExpectedConditions.textToBePresentInElement(subHeading, title));
     }
 
+    public String getHeading(){
+        return pageHeading.getText();
+    }
+
+    public String getSubHeading(){
+        return subHeading.getText();
+    }
+
 
 }

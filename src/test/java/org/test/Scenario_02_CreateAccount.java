@@ -58,6 +58,7 @@ public class Scenario_02_CreateAccount extends TestBase {
         lp.signIn();
         ce.waitForHeading("MY ACCOUNT");
         map.getPersonalInformation();
+        assertEquals(ce.getSubHeading(), "YOUR PERSONAL INFORMATION");
         assertEquals(map.getFirstName(), excel.getColumnValue("firstname"));
         assertEquals(map.getLastName(), excel.getColumnValue("lastname"));
         assertEquals(map.getEmail(), excel.getColumnValue("email"));
