@@ -25,12 +25,14 @@ public class TestBase {
         initProp();
 
         String browser = System.getProperty("browser");
-        if (browser == null) {
+        if (browser == null || browser.isEmpty())
             browser = prop.getProperty("browser");
-        }
         browser = browser.toLowerCase();
 
         String remote = System.getProperty("remote");
+        if (remote == null || remote.isEmpty())
+            remote = "false";
+
         if (remote.equalsIgnoreCase("true")) {
             DesiredCapabilities dc = new DesiredCapabilities();
             dc.setBrowserName(browser);
