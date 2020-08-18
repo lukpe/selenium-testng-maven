@@ -1,15 +1,14 @@
 package org.test;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.*;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import static org.testng.Assert.assertTrue;
 
@@ -45,6 +44,11 @@ public class Scenario_03_OrderProduct extends TestBase {
         pp = new PaymentPage(driver, wait);
         ocp = new OrderConfirmationPage(driver, wait);
         actions = new Actions(driver);
+    }
+
+    @BeforeMethod
+    public void setThreadName(Method method) {
+        ThreadContext.put("threadName", method.getName());
     }
 
     @Parameters({"product", "quantity"})

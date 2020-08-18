@@ -1,9 +1,11 @@
 package org.test;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CommonElements;
 import pages.HomePage;
@@ -11,6 +13,7 @@ import pages.LoginPage;
 import pages.MyAccountPage;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import static org.testng.Assert.assertTrue;
 
@@ -33,6 +36,11 @@ public class Scenario_02_CreateAccount extends TestBase {
         map = new MyAccountPage(driver);
         excel = new ExcelDriver();
         excel.addNewRow();
+    }
+
+    @BeforeMethod
+    public void setThreadName(Method method) {
+        ThreadContext.put("threadName", method.getName());
     }
 
     @Test(groups = {"accountCreation"})

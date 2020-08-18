@@ -1,14 +1,13 @@
 package org.test;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.HomePage;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import static org.testng.Assert.assertTrue;
 
@@ -22,6 +21,11 @@ public class Scenario_01_VerifyHomePage extends TestBase {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
         hp = new HomePage(driver, wait);
+    }
+
+    @BeforeMethod
+    public void setThreadName(Method method){
+        ThreadContext.put("threadName", method.getName());
     }
 
     @Test

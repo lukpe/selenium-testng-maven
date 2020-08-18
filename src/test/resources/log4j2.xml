@@ -8,16 +8,22 @@
             <PatternLayout
                     pattern="%d{HH:mm:ss.SSS} [%t] %-5level - %logger{36} - %msg%n"/>
         </Console>
-        <RollingFile name="File" fileName="${basePath}/testRuns-${date:yyy-MM-dd}.log"
-                     filePattern="${basePath}/testRuns-%d{yyy-MM-dd}_%i.log">
-            <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] - %msg%n"/>
-            <sizeBasedTriggeringPolicy size="5000"/>
-        </RollingFile>
+        <Routing name="RoutingAppender">
+            <Routes pattern="$${ctx:threadName}">
+                <Route>
+                    <File name="File"
+                          fileName="${basePath}/${date:yyy-MM-ddHHmmssSSS}-${ctx:threadName}_test.log"
+                          append="false">
+                        <PatternLayout
+                                pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] - %msg%n"/>
+                    </File>
+                </Route>
+            </Routes>
+        </Routing>
     </Appenders>
     <Loggers>
         <Root level="trace">
-            <AppenderRef ref="File"/>
+            <AppenderRef ref="RoutingAppender"/>
         </Root>
     </Loggers>
 </Configuration>
