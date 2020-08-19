@@ -3,7 +3,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 
 ## requirements
 * Java 11
-* Chrome and/or Firefox
+* Chrome/Firefox/Edge web browser
 
 ## how to run
 * `git clone https://github.com/lukpe/selenium-testng-maven.git`
