@@ -29,7 +29,7 @@ public class Scenario_02_CreateAccount extends TestBase {
     public void setUp() {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
-        ce = new CommonElements(driver);
+        ce = new CommonElements(driver, wait);
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver);

@@ -44,7 +44,7 @@ public class ShippingPage {
     }
 
     public String getTermsAndConditionsHeading() {
-        CommonElements ce = new CommonElements(driver);
+        CommonElements ce = new CommonElements(driver, wait);
         termsAndConditions.click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(termsAndCondFrame));
         String heading = ce.getHeading();

@@ -33,7 +33,7 @@ public class Scenario_03_OrderProduct extends TestBase {
     public void setUp() {
         driver = initializeDriver();
         wait = new WebDriverWait(driver, timeOut);
-        ce = new CommonElements(driver);
+        ce = new CommonElements(driver, wait);
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver);
@@ -103,6 +103,7 @@ public class Scenario_03_OrderProduct extends TestBase {
         assertEquals(shp.getErrorMessage(), "You must agree to the terms of service before continuing.");
         shp.acceptTermsAndConditions();
         shp.proceedCheckOut();
+        ce.waitForHeaderChange("SHIPPING");
     }
 
     @Parameters({"product", "payment"})

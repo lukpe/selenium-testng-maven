@@ -15,7 +15,7 @@ public class PaymentPage {
     public PaymentPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
-        ce = new CommonElements(driver);
+        ce = new CommonElements(driver, wait);
         PageFactory.initElements(driver, this);
     }
 

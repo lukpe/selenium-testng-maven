@@ -4,12 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CommonElements {
     public WebDriver driver;
+    private final WebDriverWait wait;
 
-    public CommonElements(WebDriver driver) {
+    public CommonElements(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
@@ -25,5 +28,9 @@ public class CommonElements {
 
     public String getSubheading() {
         return subheading.getText();
+    }
+
+    public void waitForHeaderChange(String value) {
+        wait.until(driver1 -> !pageHeading.getText().contains(value));
     }
 }
