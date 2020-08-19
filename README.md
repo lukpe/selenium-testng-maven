@@ -3,12 +3,11 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 
 ## requirements
 * Java 11
-* Maven 3.6.3 or later
 * Chrome and/or Firefox
 
 ## how to run
 * `git clone https://github.com/lukpe/selenium-testng-maven.git`
-* `mvn clean test -Dbrowser={browser} -Dremote={true?}`
+* `mvnw clean test -Dbrowser={browser} -Dremote={true?}`
 
 ###### supported `{browser}` values
 `chrome` `firefox` `edge`
@@ -20,9 +19,10 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * `homePageURL` & `timeOut` are also set in [test.properties]
 
 ## main features
+* [Maven Wrapper Plugin](https://github.com/takari/takari-maven-plugin)
+* [Maven Surefire Reports](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
 * [Page Factory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory)
 * [TestNG](https://testng.org/doc/)
-* [Maven Surefire Reports](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
 * [Apache Log4j2 ](https://logging.apache.org/log4j/2.x/) logs -> `./target/logs`
 * screenshots on test fail -> `./target/screenshots`
