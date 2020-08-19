@@ -19,6 +19,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * `homePageURL` & `timeOut` are also set in [test.properties]
 
 ## main features
+* [Apache Maven](https://maven.apache.org/)
 * [Maven Wrapper Plugin](https://github.com/takari/takari-maven-plugin)
 * [Maven Surefire Reports](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
 * [Page Factory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory)
