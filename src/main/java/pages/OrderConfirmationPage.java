@@ -1,5 +1,7 @@
 package pages;
 
+import org.openqa.selenium.InvalidArgumentException;
+import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,11 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.test.ExcelDriver;
 
 public class OrderConfirmationPage {
-    public WebDriver driver;
     private final WebDriverWait wait;
 
     public OrderConfirmationPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
@@ -41,11 +41,11 @@ public class OrderConfirmationPage {
             } else if (payment.equals("cheque")) {
                 messageElement = successCheque;
             } else {
-                throw new Exception("Invalid payment method: " + payment);
+                throw new InvalidArgumentException("Invalid payment method: " + payment);
             }
             wait.until(ExpectedConditions.visibilityOf(messageElement));
             return messageElement.getText();
-        } catch (Exception e) {
+        } catch (InvalidElementStateException e) {
             e.printStackTrace();
         }
         return null;
@@ -63,9 +63,9 @@ public class OrderConfirmationPage {
             } else if (payment.equalsIgnoreCase("cheque")) {
                 fullText = confirmationCheque.getText().replace("\n", "");
             } else {
-                throw new Exception("Invalid payment method: " + payment);
+                throw new InvalidArgumentException("Invalid payment method: " + payment);
             }
-        } catch (Exception e) {
+        } catch (InvalidElementStateException e) {
             e.printStackTrace();
         }
         assert fullText != null;

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ShippingPage {
-    public WebDriver driver;
+    private final WebDriver driver;
     private final WebDriverWait wait;
 
     public ShippingPage(WebDriver driver, WebDriverWait wait) {

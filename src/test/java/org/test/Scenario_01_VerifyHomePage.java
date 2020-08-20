@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import pages.HomePage;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static org.testng.Assert.assertEquals;
@@ -16,7 +15,7 @@ public class Scenario_01_VerifyHomePage extends TestBase {
     HomePage hp;
 
     @BeforeClass
-    public void setUp() throws IOException {
+    public void setUp() {
         driver = initializeDriver();
         hp = new HomePage(driver);
     }

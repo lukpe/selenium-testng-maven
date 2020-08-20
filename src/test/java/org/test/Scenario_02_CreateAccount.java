@@ -28,7 +28,7 @@ public class Scenario_02_CreateAccount extends TestBase {
     @BeforeClass
     public void setUp() {
         driver = initializeDriver();
-        wait = new WebDriverWait(driver, timeOut);
+        wait = new WebDriverWait(driver, getTimeOut());
         ce = new CommonElements(driver, wait);
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);

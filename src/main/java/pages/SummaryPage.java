@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.test.ExcelDriver;
 
 public class SummaryPage {
-    public WebDriver driver;
+    private final WebDriver driver;
     private final WebDriverWait wait;
 
 
@@ -55,9 +56,9 @@ public class SummaryPage {
     public void verifyProductName(String input) {
         try {
             if (!productName.getText().matches(".*(?i)" + input + "(?-i).*")) {
-                throw new Exception("product name not found: " + input);
+                throw new ElementNotVisibleException("product name not found: " + input);
             }
-        } catch (Exception e) {
+        } catch (ElementNotVisibleException e) {
             e.printStackTrace();
         }
     }
@@ -76,28 +77,23 @@ public class SummaryPage {
 
     public boolean verifyTotalPrice() {
         ExcelDriver excel = new ExcelDriver();
-        try {
-            double productPrice = Double.parseDouble(excel.getColumnValue("product_price"));
-            double productQuantity = Double.parseDouble(excel.getColumnValue("product_quantity"));
-            double shipping = getDoubleValue(totalShipping);
-            double tax = getDoubleValue(totalTax);
-            double currentTotalNoTax = getDoubleValue(totalPriceNoTax);
-            double currentTotal = getDoubleValue(totalPrice);
-            double correctTotalNoTax = productPrice * productQuantity + shipping;
-            double correctTotal = correctTotalNoTax + tax;
-            if (currentTotalNoTax != correctTotalNoTax) {
-                throw new Exception("Total without tax expected: " + correctTotalNoTax +
-                        ", got: " + currentTotalNoTax);
-            } else if (currentTotal != correctTotal) {
-                throw new Exception("Total with tax expected: " + correctTotal +
-                        ", got: " + currentTotal);
-            } else {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        double productPrice = Double.parseDouble(excel.getColumnValue("product_price"));
+        int productQty = Integer.parseInt(excel.getColumnValue("product_quantity"));
+        double shipping = getDoubleValue(totalShipping);
+        double tax = getDoubleValue(totalTax);
+        double currentTotalNoTax = getDoubleValue(totalPriceNoTax);
+        double currentTotal = getDoubleValue(totalPrice);
+        double correctTotalNoTax = productPrice * productQty + shipping;
+        double correctTotal = correctTotalNoTax + tax;
+        if (currentTotalNoTax != correctTotalNoTax) {
+            throw new ArithmeticException("Total without tax expected: " + correctTotalNoTax +
+                    ", got: " + currentTotalNoTax);
+        } else if (currentTotal != correctTotal) {
+            throw new ArithmeticException("Total with tax expected: " + correctTotal +
+                    ", got: " + currentTotal);
+        } else {
+            return true;
         }
-        return false;
     }
 
     private double getDoubleValue(WebElement webElement) {

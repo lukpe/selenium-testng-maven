@@ -17,16 +17,12 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
-    public WebDriver driver;
-    public Properties prop;
-    public int timeOut;
+    private WebDriver driver;
 
     public WebDriver initializeDriver() {
-        initProp();
-
         String browser = System.getProperty("browser");
         if (browser == null || browser.isEmpty())
-            browser = prop.getProperty("browser");
+            browser = getProp("browser");
         browser = browser.toLowerCase();
 
         String remote = System.getProperty("remote");
@@ -37,7 +33,7 @@ public class TestBase {
             DesiredCapabilities dc = new DesiredCapabilities();
             dc.setBrowserName(browser);
             try {
-                driver = new RemoteWebDriver(new URL(prop.getProperty("gridURL")), dc);
+                driver = new RemoteWebDriver(new URL(getProp("gridURL")), dc);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -56,29 +52,31 @@ public class TestBase {
                     driver = new EdgeDriver();
                     break;
                 default:
-                    System.out.println("Invalid browser name, selecting Chrome");
-                    WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
+                    throw new IllegalArgumentException("Invalid browser name");
             }
         }
-        timeOut = Integer.parseInt(prop.getProperty("timeOut"));
-        driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(getTimeOut(), TimeUnit.SECONDS);
 
-        driver.get(prop.getProperty("homePageURL"));
+        driver.get(getProp("homePageURL"));
         driver.manage().window().maximize();
 
         return driver;
     }
 
-    private void initProp() {
-        try {
-            FileInputStream file = new FileInputStream(System.getProperty("user.dir") +
-                    "\\src\\test\\resources\\test.properties");
-            prop = new Properties();
+    public String getProp(String name) {
+        String propFile = System.getProperty("user.dir") + "\\src\\test\\resources\\test.properties";
+        try (FileInputStream file = new FileInputStream(propFile)) {
+            Properties prop = new Properties();
             prop.load(file);
+            return prop.getProperty(name);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public int getTimeOut() {
+        return Integer.parseInt(getProp("timeOut"));
     }
 
     public WebDriver getDriver() {

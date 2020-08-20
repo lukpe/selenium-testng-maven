@@ -20,8 +20,8 @@ public class ExcelDriver {
     Workbook loginData;
     Sheet sheet;
     private int cellIndex;
-    private final String filename = "TestData.xls";
-    private final String template = System.getProperty("user.dir") + "\\src\\test\\resources\\" + filename;
+    private static final String FILENAME = "TestData.xls";
+    private final String template = System.getProperty("user.dir") + "\\src\\test\\resources\\" + FILENAME;
     private final String target = System.getProperty("user.dir") + "\\target\\test-data\\";
 
     public void copyTemplate() {
@@ -55,42 +55,27 @@ public class ExcelDriver {
                     Date date = new Date(System.currentTimeMillis());
                     value = sdf.format(date);
                 }
-                try {
-                    cellIndex = getColumnByName(columnName);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    e.printStackTrace();
-                }
+                cellIndex = getColumnByName(columnName);
                 Row row = sheet.getRow(sheet.getLastRowNum());
                 Cell cell = row.createCell(cellIndex);
                 cell.setCellValue(value);
             }
             fis.close();
             writeFile();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public String getColumnValue(String columnName) {
         try {
-            try {
-                setUp();
-                try {
-                    cellIndex = getColumnByName(columnName);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    e.printStackTrace();
-                }
-                Row row = sheet.getRow(sheet.getLastRowNum());
-                Cell cell = row.getCell(cellIndex);
-                String cellValue = cell.getRichStringCellValue().getString();
-                fis.close();
-                return cellValue;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            throw new Exception("Invalid column name");
+            setUp();
+            cellIndex = getColumnByName(columnName);
+            Row row = sheet.getRow(sheet.getLastRowNum());
+            Cell cell = row.getCell(cellIndex);
+            String cellValue = cell.getRichStringCellValue().getString();
+            fis.close();
+            return cellValue;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,7 +84,7 @@ public class ExcelDriver {
 
     private void setUp() {
         try {
-            file = new File(target + filename);
+            file = new File(target + FILENAME);
             fis = new FileInputStream(file);
             loginData = new HSSFWorkbook(fis);
             sheet = loginData.getSheet("Login");
@@ -118,13 +103,13 @@ public class ExcelDriver {
         }
     }
 
-    private int getColumnByName(String columnName) throws Exception {
+    private int getColumnByName(String columnName) {
         Row row = sheet.getRow(0);
         for (Cell cell : row) {
             if (cell.getRichStringCellValue().getString().trim().equalsIgnoreCase(columnName)) {
                 return cell.getColumnIndex();
             }
         }
-        throw new Exception("Invalid column name");
+        throw new IllegalArgumentException("Invalid column name");
     }
 }

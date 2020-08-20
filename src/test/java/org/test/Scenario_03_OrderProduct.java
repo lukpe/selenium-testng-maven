@@ -20,7 +20,7 @@ public class Scenario_03_OrderProduct extends TestBase {
     HomePage hp;
     LoginPage lp;
     MyAccountPage map;
-    SearchPage srchp;
+    SearchPage search;
     SummaryPage sump;
     AddressPage ap;
     ShippingPage shp;
@@ -32,12 +32,12 @@ public class Scenario_03_OrderProduct extends TestBase {
     @BeforeClass
     public void setUp() {
         driver = initializeDriver();
-        wait = new WebDriverWait(driver, timeOut);
+        wait = new WebDriverWait(driver, getTimeOut());
         ce = new CommonElements(driver, wait);
         hp = new HomePage(driver);
         lp = new LoginPage(driver, wait);
         map = new MyAccountPage(driver);
-        srchp = new SearchPage(driver, wait);
+        search = new SearchPage(driver, wait);
         sump = new SummaryPage(driver, wait);
         ap = new AddressPage(driver);
         shp = new ShippingPage(driver, wait);
@@ -56,11 +56,11 @@ public class Scenario_03_OrderProduct extends TestBase {
     public void addToCart(String product, int quantity) {
         product = product.toLowerCase();
         hp.searchProduct(product);
-        assertTrue(srchp.getSearchResult().contains(product), "Product name missing: " + product);
-        srchp.saveProductDetails(product, quantity);
-        srchp.addProductToCart();
-        assertEquals(srchp.getMessageHeader(), "Product successfully added to your shopping cart");
-        srchp.getContinueShopping().click();
+        assertTrue(search.getSearchResult().contains(product), "Product name missing: " + product);
+        search.saveProductDetails(product, quantity);
+        search.addProductToCart();
+        assertEquals(search.getMessageHeader(), "Product successfully added to your shopping cart");
+        search.getContinueShopping().click();
         assertEquals(hp.getCartQuantity(), "Cart 1 Product");
         hp.proceedCheckOut();
     }

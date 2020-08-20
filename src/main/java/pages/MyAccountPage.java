@@ -6,10 +6,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class MyAccountPage {
-    public WebDriver driver;
+    private static final String VALUE = "value";
 
     public MyAccountPage(WebDriver driver) {
-        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -30,14 +29,14 @@ public class MyAccountPage {
     }
 
     public String getFirstName() {
-        return accountFirstName.getAttribute("value");
+        return accountFirstName.getAttribute(VALUE);
     }
 
     public String getLastName() {
-        return accountLastName.getAttribute("value");
+        return accountLastName.getAttribute(VALUE);
     }
 
     public String getEmail() {
-        return accountEmail.getAttribute("value");
+        return accountEmail.getAttribute(VALUE);
     }
 }

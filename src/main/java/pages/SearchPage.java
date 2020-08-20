@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class SearchPage {
-    public WebDriver driver;
+    private final WebDriver driver;
     private final WebDriverWait wait;
     Actions actions;
 

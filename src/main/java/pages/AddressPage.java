@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddressPage {
-    public WebDriver driver;
+    private final WebDriver driver;
 
     public AddressPage(WebDriver driver) {
         this.driver = driver;
@@ -34,12 +35,12 @@ public class AddressPage {
                     WebElement addressField = driver.findElement(By.xpath(xpath + entry.getKey() + "']"));
                     found = addressField.getText().contentEquals(entry.getValue());
                     if (!found) {
-                        throw new Exception("Address data expected:" + entry.getValue() +
+                        throw new InvalidElementStateException("Address data expected:" + entry.getValue() +
                                 ", got:" + addressField.getText());
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (InvalidElementStateException e) {
             e.printStackTrace();
         }
         return found;
@@ -69,5 +70,4 @@ public class AddressPage {
     public void proceedCheckout() {
         checkOut.click();
     }
-
 }

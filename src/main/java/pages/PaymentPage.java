@@ -1,5 +1,7 @@
 package pages;
 
+import org.openqa.selenium.InvalidArgumentException;
+import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,12 +10,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PaymentPage {
-    public WebDriver driver;
     private final WebDriverWait wait;
     CommonElements ce;
 
     public PaymentPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
         this.wait = wait;
         ce = new CommonElements(driver, wait);
         PageFactory.initElements(driver, this);
@@ -38,9 +38,9 @@ public class PaymentPage {
             } else if (payment.equalsIgnoreCase("cheque")) {
                 cheque.click();
             } else {
-                throw new Exception("Invalid payment method: " + payment);
+                throw new InvalidArgumentException("Invalid payment method: " + payment);
             }
-        } catch (Exception e) {
+        } catch (InvalidElementStateException e) {
             e.printStackTrace();
         }
     }
@@ -56,9 +56,9 @@ public class PaymentPage {
             } else if (payment.equalsIgnoreCase("cheque")) {
                 return ce.getSubheading().matches("CHECK PAYMENT");
             } else {
-                throw new Exception("Invalid payment method: " + payment);
+                throw new InvalidArgumentException("Invalid payment method: " + payment);
             }
-        } catch (Exception e) {
+        } catch (InvalidArgumentException e) {
             e.printStackTrace();
         }
         return false;

@@ -16,12 +16,13 @@ import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LoginPage {
-    public WebDriver driver;
+    private static final Random random = new Random();
     private final WebDriverWait wait;
     private final ExcelDriver excel;
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
         excel = new ExcelDriver();
@@ -115,11 +116,11 @@ public class LoginPage {
 
         //Generate email and password
         String dateNum = String.valueOf(System.currentTimeMillis());
-        accountData.put("email", firstName.toLowerCase() + lastName.toLowerCase() + dateNum + "@selenium.test");
-        accountData.put("password", "Test" + dateNum + "!");
+        accountData.put(EMAIL, firstName.toLowerCase() + lastName.toLowerCase() + dateNum + "@selenium.test");
+        accountData.put(PASSWORD, "Test" + dateNum + "!");
 
         //Create an account
-        emailCreate.sendKeys(accountData.get("email"));
+        emailCreate.sendKeys(accountData.get(EMAIL));
         submitCreate.click();
         //Title
         gender.click();
@@ -128,9 +129,10 @@ public class LoginPage {
         //Last name
         customerLastName.sendKeys(lastName);
         //Email
-        wait.until(ExpectedConditions.attributeToBe(emailField, "value", accountData.get("email")));
+        String valueAttrib = "value";
+        wait.until(ExpectedConditions.attributeToBe(emailField, valueAttrib, accountData.get(EMAIL)));
         //Password
-        passwordField.sendKeys(accountData.get("password"));
+        passwordField.sendKeys(accountData.get(PASSWORD));
         //Date of Birth
         selectValue(years, 2);
         String month = selectValue(months, 1);
@@ -150,8 +152,8 @@ public class LoginPage {
         //Special offers
         specialOffers.click();
         //Your Address
-        wait.until(ExpectedConditions.attributeToBe(addressFirstName, "value", firstName));
-        wait.until(ExpectedConditions.attributeToBe(addressLastName, "value", lastName));
+        wait.until(ExpectedConditions.attributeToBe(addressFirstName, valueAttrib, firstName));
+        wait.until(ExpectedConditions.attributeToBe(addressLastName, valueAttrib, lastName));
 
         accountData.put("company", "Test Co.");
         addressCompany.sendKeys(accountData.get("company"));
@@ -194,13 +196,8 @@ public class LoginPage {
     }
 
     public void signIn() {
-        try {
-            emailField.sendKeys(excel.getColumnValue("email"));
-            passwordField.sendKeys(excel.getColumnValue("password"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+        emailField.sendKeys(excel.getColumnValue(EMAIL));
+        passwordField.sendKeys(excel.getColumnValue(PASSWORD));
         submitLogin.click();
     }
 
@@ -217,7 +214,6 @@ public class LoginPage {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
+        return random.nextInt((max - min) + 1) + min;
     }
 }
