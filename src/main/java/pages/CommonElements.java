@@ -28,7 +28,7 @@ public class CommonElements {
         return subheading.getText();
     }
 
-    public void waitForHeaderChange(String value) {
-        wait.until(driver1 -> !pageHeading.getText().contains(value));
+    public void waitForHeaderChange(String previous) {
+        wait.until(driver1 -> !pageHeading.getText().contains(previous));
     }
 }

@@ -116,6 +116,7 @@ public class Scenario_03_OrderProduct extends TestBase {
         assertTrue(pp.verifySubheading(payment), "Page subheading mismatch");
         assertEquals(pp.getTotalPrice(), totalPrice);
         pp.confirmPayment();
+        ce.waitForHeaderChange("ORDER SUMMARY");
         assertEquals(ce.getHeading(), "ORDER CONFIRMATION");
         assertEquals(ocp.getSuccessMessage(payment), "Your order on My Store is complete.");
         assertEquals(ocp.getTotalPrice(), totalPrice);
