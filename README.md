@@ -10,7 +10,7 @@ Selenium framework for testing e-commerce page ([automationpractice.com](http://
 * `mvnw clean test -Dbrowser={browser} -Dremote={true?}`
 
 ###### supported `{browser}` values
-`chrome` `firefox` `edge`
+`chrome` `firefox` `edge` `opera`
 
 ## configuration
 [test.properties]: src/test/resources/test.properties
