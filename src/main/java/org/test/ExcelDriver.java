@@ -21,8 +21,8 @@ public class ExcelDriver {
     Sheet sheet;
     private int cellIndex;
     private static final String FILENAME = "TestData.xls";
-    private final String template = System.getProperty("user.dir") + "\\src\\test\\resources\\" + FILENAME;
-    private final String target = System.getProperty("user.dir") + "\\target\\test-data\\";
+    private final String template = System.getProperty("user.dir") + "/src/test/resources/" + FILENAME;
+    private final String target = System.getProperty("user.dir") + "/target/test-data/";
 
     public void copyTemplate() {
         File templateFile = new File(template);

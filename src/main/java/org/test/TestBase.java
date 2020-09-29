@@ -69,7 +69,7 @@ public class TestBase {
     }
 
     public String getProp(String name) {
-        String propFile = System.getProperty("user.dir") + "\\src\\test\\resources\\test.properties";
+        String propFile = System.getProperty("user.dir") + "/src/test/resources/test.properties";
         try (FileInputStream file = new FileInputStream(propFile)) {
             Properties prop = new Properties();
             prop.load(file);
