@@ -6,10 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LogFiles {
-    private final String logDir = System.getProperty("user.dir") + "\\target\\logs";
+    private final String logDir = System.getProperty("user.dir") + "/target/logs";
 
     public void merge() {
-        String mergedFile = logDir + "\\" + "testRun_" + getDate() + "_suite.log";
+        String mergedFile = logDir + "/" + "testRun_" + getDate() + "_suite.log";
         File dir = new File(logDir);
         File[] files = dir.listFiles();
         try (PrintWriter pw = new PrintWriter(mergedFile)) {

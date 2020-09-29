@@ -33,7 +33,7 @@ public class TestListener implements ITestListener {
 
             File scrShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             String fileName = "scrShot_" + result.getTestClass().getName() + "_" + result.getName() + "_" + System.currentTimeMillis() + ".png";
-            FileUtils.copyFile(scrShot, new File(System.getProperty("user.dir") + "\\target\\screenshots\\" + fileName));
+            FileUtils.copyFile(scrShot, new File(System.getProperty("user.dir") + "/target/screenshots/" + fileName));
         } catch (IOException i) {
             i.printStackTrace();
         }
