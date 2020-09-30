@@ -10,3 +10,5 @@ testng_debug.xml
 .classpath
 .project
 test-output
+.factorypath
+/.vscode/
