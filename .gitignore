@@ -12,3 +12,5 @@ testng_debug.xml
 test-output
 .factorypath
 /.vscode/
+/.apt_generated/
+/.apt_generated_tests/
